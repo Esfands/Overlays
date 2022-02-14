@@ -1,0 +1,31 @@
+$slideDuration: 0.5s;
+
+.event-enter {
+  right: -50px !important;
+  transform: translateX(100%) !important;
+
+  &-active,
+  &-done {
+    right: 30px !important;
+    transform: translateX(0%) !important;
+  }
+
+  &-active {
+    transition: right $slideDuration ease, transform $slideDuration ease;
+  }
+}
+
+.event-exit {
+  right: 30px !important;
+  transform: translateX(0%) !important;
+
+  &-active,
+  &-done {
+    right: -50px !important;
+    transform: translateX(100%) !important;
+  }
+
+  &-active {
+    transition: right $slideDuration ease, transform $slideDuration ease;
+  }
+}

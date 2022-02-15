@@ -18,10 +18,7 @@ const useTimer = (initialDates) => {
 
   useEffect(() => {
     if (active && seconds > 0) {
-      setTimeout(() => {
-        setSeconds((s) => s - 1);
-        console.log(seconds);
-      }, 1000);
+      setTimeout(() => setSeconds((s) => s - 1), 1000);
     } else if (seconds !== null && seconds === 0) {
       setActive(false);
     }

@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import useChatEvent from '../util/hooks/useChatEvent';
 import useTimer from '../util/hooks/useTimer';
-import Poll from './Poll';
 
 import Prediction from './prediction/Prediction';
+import Poll from './poll/Poll';
 
 const App = () => {
   const event = useChatEvent();

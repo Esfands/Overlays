@@ -4,7 +4,7 @@ import useChatEvent from '../util/hooks/useChatEvent';
 import useTimer from '../util/hooks/useTimer';
 import Poll from './Poll';
 
-import Prediction from './Prediction';
+import Prediction from './prediction/Prediction';
 
 const App = () => {
   const event = useChatEvent();
@@ -23,6 +23,17 @@ const App = () => {
     }
   }, [event, setTimerActive, setTimerDates]);
 
+  let eventComponent = null;
+
+  if (event) {
+    eventComponent =
+      event.eventType === 'prediction' ? (
+        <Prediction event={event} />
+      ) : (
+        <Poll event={event} />
+      );
+  }
+
   return (
     <CSSTransition appear in={isVisible} timeout={500} classNames="event">
       <div id="event" className="position-absolute">
@@ -38,11 +49,7 @@ const App = () => {
         </div>
         <div className="event-body">
           <h1 className="title mb-3">{event?.title}</h1>
-          {event?.eventType === 'prediction' ? (
-            <Prediction event={event} />
-          ) : (
-            <Poll event={event} />
-          )}
+          {eventComponent}
         </div>
       </div>
     </CSSTransition>

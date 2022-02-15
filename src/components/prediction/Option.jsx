@@ -1,7 +1,7 @@
-import { formatDecimal } from '../util/formatters';
+import { formatDecimal } from '../../util/formatters';
 
 import OptionDetail from './OptionDetail';
-import Icons from './Icons';
+import Icons from '../Icons';
 
 const Option = ({ data, totalPts, isWinner }) => {
   const percentage = data.channel_points

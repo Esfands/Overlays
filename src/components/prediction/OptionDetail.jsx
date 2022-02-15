@@ -1,4 +1,4 @@
-import { formatDecimal } from '../util/formatters';
+import { formatDecimal } from '../../util/formatters';
 
 const OptionDetail = ({ num, icon }) => {
   const shortNum = num > 999 ? `${formatDecimal(num / 1000)}K` : num;

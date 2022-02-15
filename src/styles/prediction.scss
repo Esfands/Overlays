@@ -1,0 +1,74 @@
+.prediction {
+  .option {
+    width: 50%;
+
+    &:first-child {
+      color: $color-believe;
+      fill: $color-believe;
+      border-right: 2px solid rgba(255, 255, 255, 0.1);
+      @extend .pe-2;
+
+      .option-title {
+        text-align: right;
+        margin-left: 8px;
+      }
+    }
+
+    &:last-child {
+      color: $color-doubt;
+      fill: $color-doubt;
+      @extend .ps-2;
+
+      .option-title {
+        text-align: left;
+        margin-right: 8px;
+      }
+
+      .option-head,
+      .option-body,
+      .option-body .detail-item {
+        flex-direction: row-reverse;
+      }
+    }
+
+    .check-mark {
+      fill: #ffffff;
+    }
+
+    .option-title {
+      font-size: 1.5em;
+      width: 100%
+    }
+
+    .percentage {
+      font-size: 3.25em;
+      font-weight: 800;
+      line-height: 42pt;
+      margin: 0;
+    }
+
+    .details .detail-name {
+      color: #ffffff;
+      line-height: 14pt;
+    }
+  }
+
+  .pct-bar {
+    background-color: #2c2f38;
+    border-radius: 8px;
+    overflow: hidden;
+
+    .pct-bar-side {
+      height: 10px;
+      transition: width 0.5s ease;
+    }
+
+    .pct-bar-side:first-child {
+      background-color: $color-believe;
+    }
+
+    .pct-bar-side:last-child {
+      background-color: $color-doubt;
+    }
+  }
+}

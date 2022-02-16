@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 const WEBSOCKET_URL =
   process.env.NODE_ENV === 'production'
-    ? 'ws://api.retpaladinbot.com:4500/esfandevents'
+    ? 'wss://api.retpaladinbot.com:4500/esfandevents'
     : 'ws://localhost:8080/eventsub';
 
 const useChatEvent = () => {

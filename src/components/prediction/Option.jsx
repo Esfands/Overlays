@@ -1,12 +1,10 @@
-import { formatDecimal } from '../../util/formatters';
+import { formatDecimal, formatPercentage } from '../../util/formatters';
 
 import OptionDetail from './OptionDetail';
 import Icons from '../Icons';
 
 const Option = ({ data, totalPts, isWinner, format }) => {
-  const percentage = data.channel_points
-    ? Math.round(((data.channel_points || 0) / totalPts) * 100)
-    : 0;
+  const percentage = formatPercentage(data.channel_points, totalPts);
   const ratio = data.channel_points
     ? `1:${formatDecimal(totalPts / data.channel_points)}`
     : null;
@@ -28,7 +26,7 @@ const Option = ({ data, totalPts, isWinner, format }) => {
               icon={<Icons.TopScore />}
             />
           </div>
-          <h1 className="percentage">{percentage}%</h1>
+          <h1 className="percentage">{percentage}</h1>
         </div>
       )}
     </div>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import useChatEvent from '../util/hooks/useChatEvent';
+import useWebSocket from '../util/hooks/useWebSocket';
 import useTimer from '../util/hooks/useTimer';
 
 import Prediction from './prediction/Prediction';
@@ -8,7 +8,7 @@ import Poll from './poll/Poll';
 import classNames from 'classnames';
 
 const App = () => {
-  const [event, connected] = useChatEvent();
+  const [event, connected] = useWebSocket();
   const [isVisible, setVisible] = useState(false);
   const [timer, setTimerDates, setTimerActive] = useTimer(null);
 
@@ -44,12 +44,13 @@ const App = () => {
   }
 
   const eventClasses = classNames('position-absolute', {
-    [event?.eventType]: true,
+    [event?.eventType]: !!event,
     [event?.format]: event?.format === 'compact',
+    'no-event': !event,
   });
 
   return (
-    <CSSTransition appear in={isVisible} timeout={500} classNames="event">
+    <CSSTransition in={isVisible} timeout={500} classNames="event">
       <div id="event" className={eventClasses}>
         <div className="event-head position-absolute d-flex justify-content-between">
           <div className="text-wrap">

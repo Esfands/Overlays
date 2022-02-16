@@ -1,14 +1,18 @@
-const fs = require('fs');
-const path = require('path');
+const { open, writeFile } = require('fs');
+const { resolve } = require('path');
+const { randomBytes } = require('crypto');
 
-const contents = 'TWITCH_EVENTSUB_SECRET=';
+const FILE_PATH = resolve(__dirname, '../.env');
+const CONTENTS = `TWITCH_EVENTSUB_SECRET=${randomBytes(50).toString('hex')}`;
 
-fs.writeFile(path.resolve(__dirname, '../.env'), contents, (err) => {
-  if (err) {
-    console.error('Error creating .env for server:', err);
-  } else {
-    console.log(
-      'File "/test/server/.env" created successfully. Add your Twitch EventSub secret to it.'
-    );
+open(FILE_PATH, 'wx', (accessErr) => {
+  if (accessErr?.code === 'EEXIST') {
+    return;
   }
+
+  writeFile(FILE_PATH, CONTENTS, (writeErr) => {
+    if (writeErr) {
+      console.error('Error creating .env for test server:', writeErr);
+    }
+  });
 });

@@ -10,7 +10,6 @@ A stream overlay that displays friendly little live-updating popups about intera
 1. Add the Twitch CLI to your `path` environment variable.
 1. Clone the repository.
 1. Run `npm i` in the root directory. This will install packages for the app as well as the development server.
-1. [Generate a random string](https://passwordsgenerator.net) to use as your Twitch EventSub secret (10-100 characters), and enter it in `test/server/.env`.
 
 ### Commands
 

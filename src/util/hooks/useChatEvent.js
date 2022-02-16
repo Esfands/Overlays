@@ -11,8 +11,8 @@ const useChatEvent = () => {
   useEffect(() => {
     const ws = new WebSocket(WEBSOCKET_URL);
 
-    ws.onopen = () => {
-      console.log('WebSocket connected');
+    ws.onopen = (event) => {
+      console.log('WebSocket connected', event);
     };
 
     ws.onmessage = (event) => {
@@ -25,13 +25,14 @@ const useChatEvent = () => {
       console.error('WebSocket error', event);
     };
 
-    window.onbeforeunload = () => {
-      ws.onclose = null;
-      ws.close();
+    ws.onclose = (event) => {
+      console.log('WebSocket disconnected', event);
     };
 
-    return () => {
-      ws.close();
+    // Handle page reload/close
+    window.onbeforeunload = () => {
+      ws.onclose = null;
+      ws.close(1000);
     };
   }, []);
 

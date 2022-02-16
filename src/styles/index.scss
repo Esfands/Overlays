@@ -34,6 +34,10 @@ h1, h2, h3, h4, h5, h6 {
   color: #ffffff;
   font-size: 0.9rem;
 
+  &.compact {
+    font-size: 0.8rem;
+  }
+
   .event-head {
     top: -12px;
     padding: 0px ($bodyPadding - $headPaddingX);
@@ -49,7 +53,8 @@ h1, h2, h3, h4, h5, h6 {
 
     .title {
       font-size: 1.8em;
-      line-height: 24pt;
+      line-height: 1em;
+      margin-bottom: 0.4em;
     }
   }
 }

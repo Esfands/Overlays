@@ -19,7 +19,7 @@ const Poll = ({ event }) => {
   );
 
   return (
-    <div className="poll">
+    <div>
       <div className="content">
         {event?.payload.choices.map((data) => (
           <Option

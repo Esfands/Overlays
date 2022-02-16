@@ -113,6 +113,7 @@ function formatEvent(notification) {
     eventType: type,
     event: notification.subscription.type,
     status: type[2] === 'begin' || type[2] === 'progress' ? 'open' : 'closed',
+    format: true ? 'regular' : 'compact',
     id: notification.event.id,
     title: notification.event.title,
     payload:

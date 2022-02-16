@@ -5,6 +5,7 @@ import useTimer from '../util/hooks/useTimer';
 
 import Prediction from './prediction/Prediction';
 import Poll from './poll/Poll';
+import classNames from 'classnames';
 
 const App = () => {
   const event = useChatEvent();
@@ -28,15 +29,20 @@ const App = () => {
   if (event) {
     eventComponent =
       event.eventType === 'prediction' ? (
-        <Prediction event={event} />
+        <Prediction event={event} format={event.format} />
       ) : (
         <Poll event={event} />
       );
   }
 
+  const eventClasses = classNames('position-absolute', {
+    [event?.eventType]: true,
+    [event?.format]: event?.format === 'compact',
+  });
+
   return (
     <CSSTransition appear in={isVisible} timeout={500} classNames="event">
-      <div id="event" className="position-absolute">
+      <div id="event" className={eventClasses}>
         <div className="event-head position-absolute d-flex justify-content-between">
           <div className="text-wrap">
             <span className="top-tag event-type">
@@ -48,7 +54,7 @@ const App = () => {
           </div>
         </div>
         <div className="event-body">
-          <h1 className="title mb-3">{event?.title}</h1>
+          <h1 className="title">{event?.title}</h1>
           {eventComponent}
         </div>
       </div>

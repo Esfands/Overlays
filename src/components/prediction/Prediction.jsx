@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 
 import Option from './Option';
 
-const Prediction = ({ event }) => {
+const Prediction = ({ event, format }) => {
   const totalPts = event?.payload.outcomes.reduce((final, val) => {
     return final + (val.channel_points || 0);
   }, 0);
@@ -15,14 +15,15 @@ const Prediction = ({ event }) => {
   );
 
   return (
-    <div className="prediction">
-      <div className="content d-flex mb-3">
+    <div>
+      <div className="content d-flex">
         {event?.payload.outcomes.map((data) => (
           <Option
             key={data.id}
             data={data}
             totalPts={totalPts}
             isWinner={isWinner(data)}
+            format={format}
           />
         ))}
       </div>
@@ -32,6 +33,7 @@ const Prediction = ({ event }) => {
             key={data.id}
             className="pct-bar-side"
             style={{
+              height: format === 'regular' ? '10px' : '20px',
               width: `${((data.channel_points || 0) / totalPts) * 100}%`,
             }}
           />

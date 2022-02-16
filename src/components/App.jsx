@@ -8,7 +8,7 @@ import Poll from './poll/Poll';
 import classNames from 'classnames';
 
 const App = () => {
-  const event = useChatEvent();
+  const [event, connected] = useChatEvent();
   const [isVisible, setVisible] = useState(false);
   const [timer, setTimerDates, setTimerActive] = useTimer(null);
 
@@ -23,6 +23,14 @@ const App = () => {
       setTimeout(() => setVisible(false), 10000);
     }
   }, [event, setTimerActive, setTimerDates]);
+
+  if (!connected) {
+    return (
+      <div className="position-absolute top-50 start-50 translate-middle">
+        <h1 className="text-white">No connection to Twitch</h1>
+      </div>
+    );
+  }
 
   let eventComponent = null;
 

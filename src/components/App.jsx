@@ -29,7 +29,7 @@ const App = () => {
   if (event) {
     eventComponent =
       event.eventType === 'prediction' ? (
-        <Prediction event={event} format={event.format} />
+        <Prediction event={event} />
       ) : (
         <Poll event={event} />
       );

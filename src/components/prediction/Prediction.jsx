@@ -1,8 +1,9 @@
 import { useCallback } from 'react';
+import { formatPercentage } from '../../util/formatters';
 
 import Option from './Option';
 
-const Prediction = ({ event, format }) => {
+const Prediction = ({ event }) => {
   const totalPts = event?.payload.outcomes.reduce((final, val) => {
     return final + (val.channel_points || 0);
   }, 0);
@@ -23,7 +24,6 @@ const Prediction = ({ event, format }) => {
             data={data}
             totalPts={totalPts}
             isWinner={isWinner(data)}
-            format={format}
           />
         ))}
       </div>
@@ -32,10 +32,7 @@ const Prediction = ({ event, format }) => {
           <div
             key={data.id}
             className="pct-bar-side"
-            style={{
-              height: format === 'regular' ? '10px' : '20px',
-              width: `${((data.channel_points || 0) / totalPts) * 100}%`,
-            }}
+            style={{ width: formatPercentage(data.channel_points, totalPts) }}
           />
         ))}
       </div>

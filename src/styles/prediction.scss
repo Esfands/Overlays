@@ -34,16 +34,22 @@
         flex-direction: row-reverse;
       }
     }
+  }
 
-    .check-mark {
-      fill: #ffffff;
-    }
+  .option-head {
+    margin-bottom: 8px;
 
     .option-title {
       font-size: 1.5em;
       width: 100%
     }
 
+    .check-mark {
+      fill: #ffffff;
+    }
+  }
+
+  .option-body {
     .percentage {
       font-size: 3.25em;
       font-weight: 800;
@@ -51,7 +57,7 @@
       margin: 0;
     }
 
-    .details .detail-name {
+    .detail-name {
       color: #ffffff;
       line-height: 14pt;
     }
@@ -74,5 +80,19 @@
     .pct-bar-side:last-child {
       background-color: $color-doubt;
     }
+  }
+}
+
+.prediction.compact {
+  .option-head {
+    margin-bottom: 0px;
+  }
+
+  .option-body {
+    display: none !important;
+  }
+
+  .pct-bar .pct-bar-side {
+    height: 20px;
   }
 }

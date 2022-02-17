@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
 
-let retries = 0;
-const MAX_RETRIES = 3;
-
+const SERVER_TIMEOUT_HOURS = 23;
 const WEBSOCKET_URL =
   process.env.NODE_ENV === 'production'
     ? 'wss://api.retpaladinbot.com/esfandevents'
@@ -10,13 +8,13 @@ const WEBSOCKET_URL =
 
 const useWebSocket = () => {
   const [event, setEvent] = useState(null);
-  const [ws, setWebSocket] = useState(new WebSocket(WEBSOCKET_URL));
   const [connected, setConnected] = useState(false);
 
   useEffect(() => {
+    const ws = new WebSocket(WEBSOCKET_URL);
+
     ws.onopen = (event) => {
       console.log('WebSocket connected', event);
-      retries = 0;
       setConnected(true);
     };
 
@@ -31,12 +29,6 @@ const useWebSocket = () => {
     };
 
     ws.onclose = (event) => {
-      if (retries < MAX_RETRIES) {
-        retries++;
-        console.log(`Attempting to reconnect (${retries}/${MAX_RETRIES})`);
-        setWebSocket(new WebSocket(WEBSOCKET_URL));
-      }
-
       setConnected(false);
     };
 
@@ -45,7 +37,14 @@ const useWebSocket = () => {
       ws.onclose = null;
       ws.close(1000);
     };
-  }, [ws]);
+
+    const keepAlive = setInterval(() => {
+      console.log('Sending keepalive request');
+      ws.send('keepalive');
+    }, SERVER_TIMEOUT_HOURS * 60 * 60 * 1000);
+
+    return () => clearInterval(keepAlive);
+  }, []);
 
   return [event, connected];
 };

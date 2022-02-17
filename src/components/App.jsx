@@ -9,6 +9,7 @@ import classNames from 'classnames';
 
 const App = () => {
   const [event, connected] = useWebSocket();
+  const [isOpen, setOpen] = useState(false);
   const [isVisible, setVisible] = useState(false);
   const [timer, setTimerDates, setTimerActive] = useTimer(null);
 
@@ -16,10 +17,12 @@ const App = () => {
     if (event?.event.endsWith('begin')) {
       setTimerDates(event.dates);
       setVisible(true);
+      setOpen(true);
     } else if (event?.event.endsWith('lock')) {
       setTimerActive(false);
     } else if (event?.event.endsWith('end')) {
       setTimerActive(false);
+      setOpen(false);
       setTimeout(() => setVisible(false), 10000);
     }
   }, [event, setTimerActive, setTimerDates]);
@@ -39,7 +42,7 @@ const App = () => {
       event.eventType === 'prediction' ? (
         <Prediction event={event} />
       ) : (
-        <Poll event={event} />
+        <Poll event={event} isOpen={isOpen} />
       );
   }
 

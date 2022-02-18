@@ -10,7 +10,7 @@ const Option = ({ data, totalPts, isWinner }) => {
     : null;
 
   return (
-    <div className="option">
+    <div className="option d-flex flex-column justify-content-between">
       <div className="option-head d-flex justify-content-between align-items-center">
         {isWinner && <Icons.Check className="check-mark" />}
         <h3 className="option-title mb-0">{data.title}</h3>

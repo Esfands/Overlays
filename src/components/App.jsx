@@ -37,7 +37,6 @@ const App = () => {
     );
   }
 
-  let timerText = event?.status === 'open' ? timer : 'CLOSED';
   let eventComponent = null;
 
   if (event) {
@@ -65,7 +64,7 @@ const App = () => {
             </span>
           </div>
           <div className="text-wrap">
-            <span className="top-tag time-left">{timerText}</span>
+            <span className="top-tag time-left">{timer}</span>
           </div>
         </div>
         <div className="event-body">

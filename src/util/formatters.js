@@ -24,5 +24,5 @@ export const formatPercentage = (part, whole) =>
 export const formatSeconds = (seconds) =>
   (seconds % 60)?.toString().padStart(2, '0');
 
-export const formatTimer = (minutes, seconds) =>
-  `${minutes}:${formatSeconds(seconds)}`;
+export const formatTimer = (active, minutes, seconds) =>
+  active ? `${minutes}:${formatSeconds(seconds)}` : 'CLOSED';

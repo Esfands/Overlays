@@ -20,12 +20,14 @@ const App = () => {
       setOpen(true);
     } else if (event?.event.endsWith('lock')) {
       setTimerActive(false);
+      setTimeout(() => setVisible(false), 10000);
     } else if (event?.event.endsWith('end')) {
       setTimerActive(false);
       setOpen(false);
+      setVisible(true);
       setTimeout(() => setVisible(false), 10000);
     }
-  }, [event, setTimerActive, setTimerDates]);
+  }, [event?.event, event?.dates, setTimerActive, setTimerDates]);
 
   if (!connected) {
     return (

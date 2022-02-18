@@ -10,15 +10,14 @@ module.exports = (expressServer, connections) => {
   });
 
   websocketServer.on('connection', (connection) => {
-    console.log('WebSocket connection opened');
-
     connections.push(connection);
+    console.log(`WebSocket connection opened (${connections.length})`);
 
     connection.on('close', () => {
-      console.log('WebSocket connection closed');
-
       const connectionIdx = connections.indexOf(connection);
       connections.splice(connectionIdx, 1);
+
+      console.log(`WebSocket connection closed (${connections.length})`);
     });
   });
 

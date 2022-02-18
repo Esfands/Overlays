@@ -1,12 +1,13 @@
-import { formatDecimal } from '../../util/formatters';
+import { formatShortNumber } from '../../util/formatters';
 
-const OptionDetail = ({ num, icon }) => {
-  const shortNum = num > 999 ? `${formatDecimal(num / 1000)}K` : num;
+const OptionDetail = ({ value, icon }) => {
+  const formattedVal =
+    typeof value === 'number' ? formatShortNumber(value) : value;
 
   return (
     <div className="detail-item d-flex align-items-center">
       {icon}
-      <span className="detail-name mx-1">{shortNum || '--'}</span>
+      <span className="detail-name mx-1">{formattedVal || '--'}</span>
     </div>
   );
 };

@@ -17,11 +17,11 @@ const Option = ({ data, totalPts, isWinner }) => {
       </div>
       <div className="option-body d-flex justify-content-between align-items-center">
         <div className="details">
-          <OptionDetail num={data.channel_points} icon={<Icons.Count />} />
-          <OptionDetail num={ratio} icon={<Icons.Trophy />} />
-          <OptionDetail num={data.users} icon={<Icons.People />} />
+          <OptionDetail value={data.channel_points} icon={<Icons.Count />} />
+          <OptionDetail value={ratio} icon={<Icons.Trophy />} />
+          <OptionDetail value={data.users} icon={<Icons.People />} />
           <OptionDetail
-            num={data.top_predictors?.[0]?.channel_points_used}
+            value={data.top_predictors?.[0]?.channel_points_used}
             icon={<Icons.TopScore />}
           />
         </div>

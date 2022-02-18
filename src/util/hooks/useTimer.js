@@ -26,7 +26,7 @@ const useTimer = (initialDates) => {
   }, [seconds]);
 
   const minutes = Math.floor(seconds / 60);
-  const formattedTimer = formatTimer(active, minutes, seconds);
+  const formattedTimer = formatTimer(minutes, seconds);
 
   return [formattedTimer, setDates, setActive];
 };

@@ -3,6 +3,7 @@ const exec = require('child_process').exec;
 
 const args = process.argv.slice(2);
 
+const isProgressEvent = args[0]?.endsWith('progress');
 const eventTypes = [
   'poll-begin',
   'poll-end',
@@ -18,14 +19,14 @@ if (args.length === 0 || !eventTypes.includes(args[0])) {
     'Twitch event type argument invalid or missing.\nAccepted values: ',
     eventTypes.join(', ')
   );
+
   process.exit(0);
 }
 
 exec(
-  `twitch event trigger ${args[0]} -F http://localhost:8080/eventsub -s ${process.env.TWITCH_EVENTSUB_SECRET}`,
-  (err, stdout, stderr) => {
-    if (err) {
-      console.error(err);
-    }
-  }
+  `twitch event trigger ${args[0]} \
+  -c ${isProgressEvent && args[1] ? args[1] : 1} \
+  -F http://localhost:8080/eventsub \
+  -s ${process.env.TWITCH_EVENTSUB_SECRET}`,
+  (err) => err && console.error(err)
 );

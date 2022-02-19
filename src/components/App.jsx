@@ -27,7 +27,7 @@ const App = () => {
       setVisible(true);
       setTimeout(() => setVisible(false), 10000);
     }
-  }, [event?.event, event?.dates, setTimerActive, setTimerDates]);
+  }, [event, setTimerActive, setTimerDates]);
 
   if (!connected) {
     return (

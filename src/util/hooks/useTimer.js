@@ -17,16 +17,18 @@ const useTimer = (initialDates) => {
   }, [dates]);
 
   useEffect(() => {
-    if (active && seconds > 0) {
-      setTimeout(() => setSeconds((s) => s - 1), 1000);
-    } else if (seconds !== null && seconds === 0) {
-      setActive(false);
+    if (active) {
+      if (seconds > 0) {
+        setTimeout(() => setSeconds((s) => s - 1), 1000);
+      } else if (seconds !== null && seconds === 0) {
+        setActive(false);
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [seconds]);
 
   const minutes = Math.floor(seconds / 60);
-  const formattedTimer = formatTimer(active, minutes, seconds);
+  const formattedTimer = formatTimer(minutes, seconds);
 
   return [formattedTimer, setDates, setActive];
 };

@@ -1,3 +1,4 @@
+import { CSSTransition } from 'react-transition-group';
 import { formatPercentage } from '../../util/formatters';
 import Icons from '../Icons';
 
@@ -6,6 +7,14 @@ const Option = ({ data, totalVotes, isWinner }) => {
 
   return (
     <div className="option position-relative">
+      <CSSTransition
+        appear
+        in={isWinner}
+        timeout={500}
+        classNames="poll-trophy"
+      >
+        <Icons.Trophy className="position-absolute" />
+      </CSSTransition>
       {isWinner && <Icons.Trophy className="position-absolute" />}
       <div className="option-content position-relative">
         <div

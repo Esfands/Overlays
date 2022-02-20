@@ -29,3 +29,16 @@ $slideDuration: 0.5s;
     transition: right $slideDuration ease, transform $slideDuration ease;
   }
 }
+
+.poll-trophy-appear {
+  left: 0px !important;
+
+  &-active,
+  &-done {
+    left: -35px !important;
+  }
+
+  &-active {
+    transition: left $slideDuration ease;
+  }
+}

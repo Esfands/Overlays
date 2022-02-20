@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 
 import Option from './Option';
 
-const Poll = ({ event, isOpen }) => {
+const Poll = ({ event }) => {
   const totalVotes = event.payload.choices.reduce(
     (total, choice) => total + choice.votes,
     0
@@ -10,12 +10,12 @@ const Poll = ({ event, isOpen }) => {
 
   const isWinner = useCallback(
     (option) =>
-      !isOpen &&
+      event.status !== 'open' &&
       event.payload.choices.reduce(
         (winner, choice) => (choice.votes > winner.votes ? choice : winner),
         option
       ).votes === option.votes,
-    [isOpen, event.payload.choices]
+    [event.status, event.payload.choices]
   );
 
   return (

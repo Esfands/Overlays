@@ -30,7 +30,8 @@ $slideDuration: 0.5s;
   }
 }
 
-.poll-trophy-appear {
+.poll-trophy-appear,
+.poll-trophy-enter {
   left: 0px !important;
 
   &-active,

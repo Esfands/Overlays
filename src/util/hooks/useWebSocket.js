@@ -43,7 +43,10 @@ const useWebSocket = () => {
       ws.send('keepalive');
     }, SERVER_TIMEOUT_HOURS * 60 * 60 * 1000);
 
-    return () => clearInterval(keepAlive);
+    return () => {
+      ws.close(1000);
+      clearInterval(keepAlive);
+    };
   }, []);
 
   return [event, connected];

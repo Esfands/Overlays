@@ -15,7 +15,6 @@ const Option = ({ data, totalVotes, isWinner }) => {
       >
         <Icons.Trophy className="position-absolute" />
       </CSSTransition>
-      {isWinner && <Icons.Trophy className="position-absolute" />}
       <div className="option-content position-relative">
         <div
           className="option-fill position-absolute"

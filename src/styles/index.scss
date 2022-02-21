@@ -59,10 +59,19 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+.no-connection {
+  top: 30px;
+  right: 30px;
+}
+
 .text-wrap {
   background-color: #151822;
   border-radius: 5px;
   padding: 0px $headPaddingX;
+}
+
+.text-shadow {
+  text-shadow: 2px 2px 0px #000000;
 }
 
 @import './prediction.scss';

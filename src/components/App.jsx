@@ -28,8 +28,8 @@ const App = () => {
 
   if (!connected) {
     return (
-      <div className="position-absolute top-50 start-50 translate-middle">
-        <h1 className="text-white">No connection to Twitch</h1>
+      <div className="no-connection position-absolute text-shadow">
+        <h1 className="text-white">Prediction overlay not connected</h1>
       </div>
     );
   }

@@ -1,24 +1,25 @@
 import { useCallback } from 'react';
 import { formatPercentage } from '../../util/formatters';
 
+import Event from '../Event';
 import Option from './Option';
 
-const Prediction = ({ event }) => {
-  const totalPts = event?.payload.outcomes.reduce((final, val) => {
+const Prediction = ({ data }) => {
+  const totalPts = data?.payload.outcomes.reduce((final, val) => {
     return final + (val.channel_points || 0);
   }, 0);
 
   const isWinner = useCallback(
     (option) =>
-      event?.event.endsWith('end') &&
-      option.id === event.payload.winning_outcome_id,
-    [event]
+      data?.event.endsWith('end') &&
+      option.id === data.payload.winning_outcome_id,
+    [data]
   );
 
   return (
-    <div>
+    <Event type="prediction" data={data}>
       <div className="content d-flex">
-        {event?.payload.outcomes.map((data) => (
+        {data?.payload.outcomes.map((data) => (
           <Option
             key={data.id}
             data={data}
@@ -28,7 +29,7 @@ const Prediction = ({ event }) => {
         ))}
       </div>
       <div className="pct-bar d-flex">
-        {event?.payload.outcomes.map((data) => (
+        {data?.payload.outcomes.map((data) => (
           <div
             key={data.id}
             className="pct-bar-side"
@@ -36,7 +37,7 @@ const Prediction = ({ event }) => {
           />
         ))}
       </div>
-    </div>
+    </Event>
   );
 };
 

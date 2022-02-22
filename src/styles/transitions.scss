@@ -1,32 +1,47 @@
+$edgeSize: 30px;
+
 $slideDuration: 0.5s;
+$heightDuration: 1s;
+$marginDuration: 0.4s;
+$delay: $slideDuration;
 
 .event-enter {
-  right: -50px !important;
-  transform: translateX(100%) !important;
+  right: -110% !important;
+  margin-top: 0px;
+  max-height: 0px;
 
   &-active,
   &-done {
-    right: 30px !important;
-    transform: translateX(0%) !important;
+    right: calc(0% + $edgeSize) !important;
+    margin-top: $edgeSize;
+    max-height: 300px;
   }
 
   &-active {
-    transition: right $slideDuration ease, transform $slideDuration ease;
+    transition:
+      margin-top $marginDuration ease,
+      max-height $heightDuration ease,
+      right $slideDuration ease $delay,
   }
 }
 
 .event-exit {
-  right: 30px !important;
-  transform: translateX(0%) !important;
+  right: calc(0% + $edgeSize) !important;
+  margin-top: $edgeSize;
+  max-height: 300px;
 
   &-active,
   &-done {
-    right: -50px !important;
-    transform: translateX(100%) !important;
+    right: -110% !important;
+    margin-top: 0px;
+    max-height: 0px;
   }
 
   &-active {
-    transition: right $slideDuration ease, transform $slideDuration ease;
+    transition:
+      right $slideDuration ease,
+      margin-top $marginDuration ease $delay,
+      max-height $heightDuration ease $delay;
   }
 }
 

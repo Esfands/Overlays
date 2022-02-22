@@ -17,13 +17,17 @@ const useTimer = (initialDates) => {
   }, [dates]);
 
   useEffect(() => {
+    let ticker;
+
     if (active) {
       if (seconds > 0) {
-        setTimeout(() => setSeconds((s) => s - 1), 1000);
+        ticker = setTimeout(() => setSeconds((s) => s - 1), 1000);
       } else if (seconds !== null && seconds === 0) {
         setActive(false);
       }
     }
+
+    return () => clearTimeout(ticker);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [seconds]);
 

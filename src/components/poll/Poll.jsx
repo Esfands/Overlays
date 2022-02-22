@@ -1,27 +1,28 @@
 import { useCallback } from 'react';
 
+import Event from '../Event';
 import Option from './Option';
 
-const Poll = ({ event }) => {
-  const totalVotes = event.payload.choices.reduce(
+const Poll = ({ data }) => {
+  const totalVotes = data?.payload.choices.reduce(
     (total, choice) => total + choice.votes,
     0
   );
 
   const isWinner = useCallback(
     (option) =>
-      event.status !== 'open' &&
-      event.payload.choices.reduce(
+      data.status !== 'open' &&
+      data.payload.choices.reduce(
         (winner, choice) => (choice.votes > winner.votes ? choice : winner),
         option
       ).votes === option.votes,
-    [event.status, event.payload.choices]
+    [data?.status, data?.payload.choices]
   );
 
   return (
-    <div>
+    <Event type="poll" data={data}>
       <div className="content">
-        {event?.payload.choices.map((data) => (
+        {data?.payload.choices.map((data) => (
           <Option
             key={data.id}
             data={data}
@@ -30,7 +31,7 @@ const Poll = ({ event }) => {
           />
         ))}
       </div>
-    </div>
+    </Event>
   );
 };
 

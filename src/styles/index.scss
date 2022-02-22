@@ -24,13 +24,13 @@ h1, h2, h3, h4, h5, h6 {
   font-stretch: semi-condensed;
 }
 
-#event {
+.event {
   width: 375px;
   background-color: #151822;
   border-radius: 15px;
-  top: 30px;
-  right: -50px;
-  transform: translateX(100%);
+  right: -110%;
+  margin-top: 0px;
+  max-height: 0px;
   color: #ffffff;
   font-size: 0.9rem;
 

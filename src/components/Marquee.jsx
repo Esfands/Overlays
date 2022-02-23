@@ -1,14 +1,20 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { formatCurrency } from '../util/formatters';
 
 const Marquee = ({ data }) => {
   const [visible, setVisible] = useState(false);
+  const textRef = useRef();
 
   useEffect(() => {
-    if (data?.eventType === 'prediction' && data?.event.endsWith('end')) {
-      setVisible(true);
-      setTimeout(() => setVisible(false), 15000);
+    if (data?.eventType === 'prediction') {
+      if (data.event.endsWith('begin')) {
+        textRef.current.classList.remove('scroll-text');
+      } else if (data.event.endsWith('end')) {
+        textRef.current.classList.add('scroll-text');
+        setVisible(true);
+        setTimeout(() => setVisible(false), 15000);
+      }
     }
   }, [data]);
 
@@ -35,7 +41,10 @@ const Marquee = ({ data }) => {
           <span>BREAKING NEWS</span>
         </div>
         <div className="position-relative w-100">
-          <span className="scroll-text position-absolute text-nowrap">
+          <span
+            className="marquee-text position-absolute text-nowrap"
+            ref={textRef}
+          >
             {`Twitch local "${biggestWinner.user_name}" wins ${formatCurrency(
               biggestWinner.channel_points_won
             )} Ret Coin at the tables. Gambling addict "${

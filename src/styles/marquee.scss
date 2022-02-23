@@ -16,14 +16,17 @@ $marqueeHeight: 2.6rem;
     z-index: 1;
   }
 
-  .scroll-text {
+  .marquee-text {
     top: 3px;
-    animation: textScroll 20s linear infinite;
 
     img {
       margin-left: 10px;
     }
   }
+}
+
+.scroll-text {
+  animation: textScroll 20s linear infinite;
 }
 
 @keyframes textScroll {

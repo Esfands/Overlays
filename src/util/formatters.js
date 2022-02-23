@@ -22,7 +22,7 @@ export const formatPercentage = (part, whole) =>
   `${part && whole ? Math.round((part / whole) * 100) : 0}%`;
 
 export const formatSeconds = (seconds) =>
-  (seconds % 60)?.toString().padStart(2, '0');
+  (Math.round(seconds) % 60)?.toString().padStart(2, '0');
 
 export const formatTimer = (minutes, seconds) =>
   `${minutes}:${formatSeconds(seconds)}`;

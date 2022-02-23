@@ -43,6 +43,7 @@ const useWebSocket = () => {
 
     // Handle page reload/close
     window.onbeforeunload = () => {
+      clearTimeout(retry);
       ws.onclose = null;
       ws.close();
     };

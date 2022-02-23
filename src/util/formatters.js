@@ -18,6 +18,11 @@ export const formatShortNumber = (num) => {
   }
 };
 
+export const formatCurrency = (num) =>
+  Math.round(num)
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
 export const formatPercentage = (part, whole) =>
   `${part && whole ? Math.round((part / whole) * 100) : 0}%`;
 

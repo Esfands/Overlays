@@ -1,0 +1,32 @@
+$marqueeHeight: 2.6rem;
+
+#marquee {
+  height: $marqueeHeight;
+  background: #1a1a1a;
+  border-bottom: 5px solid #a90000;
+  color: #ffffff;
+  font-size: calc($marqueeHeight / 2);
+  margin-top: -$marqueeHeight;
+
+  .left-box {
+    padding: 2px 12px 2px 8px;
+    background-color: #a90000;
+    font-weight: 800;
+    flex: 1 0 auto;
+    z-index: 1;
+  }
+
+  .scroll-text {
+    top: 3px;
+    animation: textScroll 20s linear infinite;
+
+    img {
+      margin-left: 10px;
+    }
+  }
+}
+
+@keyframes textScroll {
+  from { left: 100%; transform: translateX(0%) }
+  to { left: 0%; transform: translateX(-100%) }
+}

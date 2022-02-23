@@ -58,3 +58,30 @@ $delay: $slideDuration;
     transition: left $slideDuration ease;
   }
 }
+
+.marquee-appear,
+.marquee-enter {
+  margin-top: -$marqueeHeight !important;
+
+  &-active,
+  &-done {
+    margin-top: 0 !important;
+  }
+
+  &-active {
+    transition: margin-top 0.25s ease;
+  }
+}
+
+.marquee-exit {
+  margin-top: 0 !important;
+
+  &-active,
+  &-done {
+    margin-top: -$marqueeHeight !important;
+  }
+
+  &-active {
+    transition: margin-top 0.25s ease;
+  }
+}

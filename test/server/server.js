@@ -121,6 +121,7 @@ function formatEvent(notification) {
         ? {
             outcomes: notification.event.outcomes,
             winning_outcome_id: notification.event.winning_outcome_id,
+            status: notification.event.status,
           }
         : {
             choices: notification.event.choices,

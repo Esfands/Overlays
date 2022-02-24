@@ -3,7 +3,7 @@ import useEvents from '../util/hooks/useEvents';
 
 import Prediction from './prediction/Prediction';
 import Poll from './poll/Poll';
-import Marquee from './Marquee';
+import Marquee from './marquee/Marquee';
 
 const App = () => {
   const [events, connected] = useEvents();

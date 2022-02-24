@@ -23,6 +23,20 @@ const Event = ({ type, data, children }) => {
     }
   }, [data?.event, data?.dates, setTimerActive, setTimerDates]);
 
+  let timerText = null;
+
+  if (data?.status === 'open') {
+    timerText = timer;
+  } else {
+    if (data?.payload.status === 'resolved') {
+      timerText = 'RESULT';
+    } else if (data?.payload.status === 'canceled') {
+      timerText = 'REFUNDED';
+    } else {
+      timerText = 'CLOSED';
+    }
+  }
+
   const eventClasses = classNames('event position-relative', {
     [type]: true,
     [data?.format]: data?.format === 'compact',
@@ -38,9 +52,7 @@ const Event = ({ type, data, children }) => {
             </span>
           </div>
           <div className="text-wrap">
-            <span className="top-tag time-left">
-              {data?.status === 'open' ? timer : 'CLOSED'}
-            </span>
+            <span className="top-tag time-left">{timerText}</span>
           </div>
         </div>
         <div className="event-body">

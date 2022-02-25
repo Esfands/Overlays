@@ -18,6 +18,10 @@ const useEvents = () => {
     }
   }, [msg]);
 
+  useEffect(() => {
+    setEvents(initialEvents);
+  }, [connected]);
+
   return [events, connected];
 };
 

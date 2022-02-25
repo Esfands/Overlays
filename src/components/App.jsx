@@ -36,7 +36,7 @@ const App = () => {
     </div>
   ) : (
     <div className="no-connection position-absolute text-shadow">
-      <h1 className="text-white">Prediction overlay not connected</h1>
+      <h5 className="text-white">Prediction overlay not connected</h5>
     </div>
   );
 };

@@ -17,25 +17,23 @@ const useWebSocket = () => {
     let keepAlive, retry;
     let ws = new WebSocket(WEBSOCKET_URL);
 
-    ws.onopen = (event) => {
-      console.log('WebSocket connected', event);
+    ws.onopen = (e) => {
+      console.log('WebSocket connected', e);
       setConnected(true);
     };
 
-    ws.onmessage = (event) => {
-      const data = JSON.parse(event.data);
+    ws.onmessage = (e) => {
+      const data = JSON.parse(e.data);
       console.log('Event received', data);
       setEvent(data);
     };
 
-    ws.onerror = (event) => {
-      console.error('WebSocket error', event);
+    ws.onerror = (e) => {
+      console.error('WebSocket error', e);
     };
 
-    ws.onclose = (event) => {
-      if (event.reason) {
-        console.log('WebSocket closed:', event.reason);
-      }
+    ws.onclose = (e) => {
+      console.log('WebSocket closed', e.reason);
 
       setConnected(false);
       retry = setTimeout(() => setRetries((r) => r + 1), RETRY_SECONDS * 1000);
@@ -43,6 +41,7 @@ const useWebSocket = () => {
 
     // Handle page reload/close
     window.onbeforeunload = () => {
+      clearInterval(keepAlive);
       clearTimeout(retry);
       ws.onclose = null;
       ws.close();
@@ -54,9 +53,9 @@ const useWebSocket = () => {
     }, SERVER_TIMEOUT_HOURS * 60 * 60 * 1000);
 
     return () => {
-      ws.close();
       clearInterval(keepAlive);
       clearTimeout(retry);
+      ws.close();
     };
   }, [retries]);
 

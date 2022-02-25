@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 const SERVER_TIMEOUT_HOURS = 23;
-const RETRY_SECONDS = 10;
+const RETRY_SECONDS = 15;
 
 const WEBSOCKET_URL =
   process.env.NODE_ENV === 'production'
@@ -11,7 +11,6 @@ const WEBSOCKET_URL =
 const useWebSocket = () => {
   const [event, setEvent] = useState(null);
   const [connected, setConnected] = useState(false);
-  const [retries, setRetries] = useState(0);
 
   useEffect(() => {
     let keepAlive, retry;
@@ -34,9 +33,7 @@ const useWebSocket = () => {
 
     ws.onclose = (e) => {
       console.log('WebSocket closed', e.reason);
-
-      setConnected(false);
-      retry = setTimeout(() => setRetries((r) => r + 1), RETRY_SECONDS * 1000);
+      retry = setTimeout(() => window.location.reload(), RETRY_SECONDS * 1000);
     };
 
     // Handle page reload/close
@@ -57,7 +54,7 @@ const useWebSocket = () => {
       clearTimeout(retry);
       ws.close();
     };
-  }, [retries]);
+  }, []);
 
   return [event, connected];
 };

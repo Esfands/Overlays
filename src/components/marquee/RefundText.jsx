@@ -1,4 +1,4 @@
-import { formatCurrency } from '../../util/formatters';
+import { getRefundText } from '../../util/marqueeText';
 
 const RefundText = ({ data }) => {
   const total = data?.outcomes.reduce(
@@ -6,9 +6,7 @@ const RefundText = ({ data }) => {
     0
   );
 
-  return `Up and coming Twitch streamer Esfand "Sukhbeer" TV admits to scamming viewers out of ${formatCurrency(
-    total
-  )} Ret Coin. Refunds to follow shortly.`;
+  return getRefundText(total);
 };
 
 export default RefundText;

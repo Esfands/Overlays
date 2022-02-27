@@ -13,10 +13,8 @@ const offsetMap = {
 const App = () => {
   const [events, connected] = useEvents();
 
-  let offset = events.prediction?.offset || events.poll?.offset || 0;
-  if (typeof offset === 'string') {
-    offset = offsetMap[offset];
-  }
+  let offset = events.prediction?.offset || events.poll?.offset;
+  offset = isNaN(offset) ? offsetMap[offset] || 0 : offset;
 
   const eventListClasses = classNames({
     'no-event': !events.prediction && !events.poll,

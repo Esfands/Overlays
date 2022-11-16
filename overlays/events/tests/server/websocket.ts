@@ -1,9 +1,14 @@
-const { WebSocketServer } = require('ws');
+import { WebSocketServer } from 'ws';
+import type { WebSocket } from 'ws';
+import type { Server } from 'http';
 
 const PROCESS_END_CODES = ['SIGINT', 'SIGTERM', 'SIGQUIT'];
 const SERVER_RESTARTING_CODE = 1012;
 
-module.exports = (expressServer, connections) => {
+export default function handleWebsocket(
+  expressServer: Server,
+  connections: WebSocket[]
+) {
   const websocketServer = new WebSocketServer({ noServer: true });
 
   expressServer.on('upgrade', (request, socket, head) => {
@@ -12,7 +17,7 @@ module.exports = (expressServer, connections) => {
     });
   });
 
-  websocketServer.on('connection', (connection) => {
+  websocketServer.on('connection', (connection: WebSocket) => {
     connections.push(connection);
     console.log(`WebSocket connection opened (${connections.length})`);
 
@@ -27,7 +32,7 @@ module.exports = (expressServer, connections) => {
   PROCESS_END_CODES.forEach((sig) => {
     process.on(sig, () => {
       connections.forEach(
-        (c) => c.close(SERVER_RESTARTING_CODE),
+        (c: WebSocket) => c.close(SERVER_RESTARTING_CODE),
         'Server is restarting'
       );
       process.exit();
@@ -35,4 +40,4 @@ module.exports = (expressServer, connections) => {
   });
 
   return expressServer;
-};
+}

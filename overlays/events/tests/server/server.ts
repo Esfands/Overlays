@@ -1,29 +1,31 @@
 // Contents derived from
 // https://dev.twitch.tv/docs/eventsub/handling-webhook-events#simple-nodejs-example
 
-require('dotenv').config();
-const crypto = require('crypto');
-const express = require('express');
-const websocketServer = require('./websocket');
+import crypto from 'crypto';
+import express, { Request } from 'express';
+import type { WebSocket } from 'ws';
+import handleWebsocket from './websocket';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 const app = express();
-let connections = [];
+let connections: WebSocket[] = [];
 
 const PORT = 8080;
 const HMAC_PREFIX = 'sha256=';
 
-const Header = {
-  TWITCH_MESSAGE_ID: 'Twitch-Eventsub-Message-Id'.toLowerCase(),
-  TWITCH_MESSAGE_TIMESTAMP: 'Twitch-Eventsub-Message-Timestamp'.toLowerCase(),
-  TWITCH_MESSAGE_SIGNATURE: 'Twitch-Eventsub-Message-Signature'.toLowerCase(),
-  MESSAGE_TYPE: 'Twitch-Eventsub-Message-Type'.toLowerCase(),
-};
+enum Header {
+  TWITCH_MESSAGE_ID = 'twitch-eventsub-message-id',
+  TWITCH_MESSAGE_TIMESTAMP = 'twitch-eventsub-message-timestamp',
+  TWITCH_MESSAGE_SIGNATURE = 'twitch-eventsub-message-signature',
+  MESSAGE_TYPE = 'twitch-eventsub-message-type',
+}
 
-const MessageType = {
-  VERIFICATION: 'webhook_callback_verification',
-  NOTIFICATION: 'notification',
-  REVOCATION: 'revocation',
-};
+enum MessageType {
+  VERIFICATION = 'webhook_callback_verification',
+  NOTIFICATION = 'notification',
+  REVOCATION = 'revocation',
+}
 
 app.use(
   express.raw({
@@ -35,10 +37,13 @@ app.use(
 app.post('/eventsub', (req, res) => {
   const secret = process.env.TWITCH_EVENTSUB_SECRET;
   const message = getHmacMessage(req);
-  const hmac = HMAC_PREFIX + getHmac(secret, message); // Signature to compare
+  const hmac = HMAC_PREFIX + getHmac(secret as string, message); // Signature to compare
 
   if (
-    verifyMessage(hmac, req.headers[Header.TWITCH_MESSAGE_SIGNATURE]) === false
+    verifyMessage(
+      hmac,
+      req.headers[Header.TWITCH_MESSAGE_SIGNATURE] as string
+    ) === false
   ) {
     console.log('403');
     res.sendStatus(403);
@@ -81,32 +86,32 @@ const expressServer = app.listen(PORT, () => {
   console.log(`Express listening at http://localhost:${PORT}`);
 });
 
-websocketServer(expressServer, connections);
+handleWebsocket(expressServer, connections);
 
 // =================
 // Utility functions
 // =================
 
-function getHmacMessage(request) {
+function getHmacMessage(request: Request) {
   return (
-    request.headers[Header.TWITCH_MESSAGE_ID] +
-    request.headers[Header.TWITCH_MESSAGE_TIMESTAMP] +
+    (request.headers[Header.TWITCH_MESSAGE_ID] as string) +
+    (request.headers[Header.TWITCH_MESSAGE_TIMESTAMP] as string) +
     request.body
   );
 }
 
-function getHmac(secret, message) {
+function getHmac(secret: string, message: string) {
   return crypto.createHmac('sha256', secret).update(message).digest('hex');
 }
 
-function verifyMessage(hmac, verifySignature) {
+function verifyMessage(hmac: string, verifySignature: string) {
   return crypto.timingSafeEqual(
     Buffer.from(hmac),
     Buffer.from(verifySignature)
   );
 }
 
-function formatEvent(notification) {
+function formatEvent(notification: Record<any, any>) {
   const [, type, status] = notification.subscription.type.split('.');
 
   return {

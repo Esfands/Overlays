@@ -1,16 +1,17 @@
-const { open, writeFile } = require('fs');
-const { resolve } = require('path');
-const { randomBytes } = require('crypto');
+import { open, writeFile } from 'fs';
+import { resolve } from 'path';
+import { randomBytes } from 'crypto';
 
-const FILE_PATH = resolve(__dirname, '../.env');
-const CONTENTS = `TWITCH_EVENTSUB_SECRET=${randomBytes(50).toString('hex')}`;
+const ENV_PATH = resolve(__dirname, '../.env');
+const RANDOM_SECRET = randomBytes(50).toString('hex');
+const CONTENTS = `TWITCH_EVENTSUB_SECRET=${RANDOM_SECRET}`;
 
-open(FILE_PATH, 'wx', (accessErr) => {
+open(ENV_PATH, 'wx', (accessErr) => {
   if (accessErr?.code === 'EEXIST') {
     return;
   }
 
-  writeFile(FILE_PATH, CONTENTS, (writeErr) => {
+  writeFile(ENV_PATH, CONTENTS, (writeErr) => {
     if (writeErr) {
       console.error('Error creating .env for test server:', writeErr);
     }

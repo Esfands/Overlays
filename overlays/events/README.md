@@ -22,12 +22,6 @@ Overlay for predictions and polls.
     - poll-lock
     - poll-end
 
-### Testing in OBS
-
-1. Create an OBS shortcut anywhere on your computer and add `--remote-debugging-port=9222` to its target value.
-1. Use this shortcut to open OBS and create a browser source with the remote URL `http://localhost:3000`.
-1. Open `http://localhost:9222` in your browser and click on the name of the new browser source.
-
 ### Notes
 
 When triggering events, be sure to trigger them in the correct order. For example, trigger "prediction-begin" before any other "prediction" event.

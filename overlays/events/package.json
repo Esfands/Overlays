@@ -1,0 +1,13 @@
+{
+  "name": "events-overlay",
+  "version": "0.2.0",
+  "license": "MIT",
+  "scripts": {
+    "postinstall": "cd tests/server && yarn install",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "server:start": "cd tests/server && yarn start",
+    "server:trigger": "cd tests/server && yarn trigger"
+  }
+}

@@ -1,11 +1,11 @@
 {
+  "license": "MIT",
   "scripts": {
     "postinstall": "node scripts/postInstall.js",
     "start": "node server.js",
     "trigger": "node scripts/runTwitchCmd.js"
   },
   "dependencies": {
-    "dotenv": "^16.0.0",
     "ws": "^8.5.0"
   }
 }

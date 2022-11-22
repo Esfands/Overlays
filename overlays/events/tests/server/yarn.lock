@@ -64,6 +64,13 @@
     "@types/mime" "*"
     "@types/node" "*"
 
+"@types/ws@^8.5.3":
+  version "8.5.3"
+  resolved "https://registry.yarnpkg.com/@types/ws/-/ws-8.5.3.tgz#7d25a1ffbecd3c4f2d35068d0b283c037003274d"
+  integrity sha512-6YOoWjruKj1uLf3INHH7D3qTXwFfEsg1kf3c0uDdSBJwfa/llkwIjrAGV7j7mVgGNbzTQ3HiHKKDXl6bJPD97w==
+  dependencies:
+    "@types/node" "*"
+
 ws@^8.5.0:
   version "8.11.0"
   resolved "https://registry.yarnpkg.com/ws/-/ws-8.11.0.tgz#6a0d36b8edfd9f96d8b25683db2f8d7de6e8e143"

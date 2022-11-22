@@ -1,10 +1,11 @@
 // Contents derived from
 // https://dev.twitch.tv/docs/eventsub/handling-webhook-events#simple-nodejs-example
 
-import crypto from 'crypto';
-import express, { Request } from 'express';
+import express from 'express';
 import type { WebSocket } from 'ws';
 import handleWebsocket from './websocket';
+import { Header, MessageType } from './types';
+import { formatEvent, getHmac, getHmacMessage, verifyMessage } from './utils';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
@@ -13,19 +14,6 @@ let connections: WebSocket[] = [];
 
 const PORT = 8080;
 const HMAC_PREFIX = 'sha256=';
-
-enum Header {
-  TWITCH_MESSAGE_ID = 'twitch-eventsub-message-id',
-  TWITCH_MESSAGE_TIMESTAMP = 'twitch-eventsub-message-timestamp',
-  TWITCH_MESSAGE_SIGNATURE = 'twitch-eventsub-message-signature',
-  MESSAGE_TYPE = 'twitch-eventsub-message-type',
-}
-
-enum MessageType {
-  VERIFICATION = 'webhook_callback_verification',
-  NOTIFICATION = 'notification',
-  REVOCATION = 'revocation',
-}
 
 app.use(
   express.raw({
@@ -87,61 +75,3 @@ const expressServer = app.listen(PORT, () => {
 });
 
 handleWebsocket(expressServer, connections);
-
-// =================
-// Utility functions
-// =================
-
-function getHmacMessage(request: Request) {
-  return (
-    (request.headers[Header.TWITCH_MESSAGE_ID] as string) +
-    (request.headers[Header.TWITCH_MESSAGE_TIMESTAMP] as string) +
-    request.body
-  );
-}
-
-function getHmac(secret: string, message: string) {
-  return crypto.createHmac('sha256', secret).update(message).digest('hex');
-}
-
-function verifyMessage(hmac: string, verifySignature: string) {
-  return crypto.timingSafeEqual(
-    Buffer.from(hmac),
-    Buffer.from(verifySignature)
-  );
-}
-
-function formatEvent(notification: Record<any, any>) {
-  const [, type, status] = notification.subscription.type.split('.');
-
-  return {
-    eventType: type,
-    event: notification.subscription.type,
-    status: status === 'begin' || status === 'progress' ? 'open' : 'closed',
-    format: true ? 'regular' : 'compact',
-    offset: 'top',
-    id: notification.event.id,
-    title: notification.event.title,
-    payload:
-      type === 'prediction'
-        ? {
-            outcomes: notification.event.outcomes,
-            winning_outcome_id: notification.event.winning_outcome_id,
-            status: notification.event.status,
-          }
-        : {
-            choices: notification.event.choices,
-            bits: notification.event.bits_voting,
-            points: notification.event.channel_points_voting,
-          },
-    dates: {
-      started: notification.event.started_at,
-      ends:
-        type === 'prediction'
-          ? status === 'begin' || status === 'progress'
-            ? notification.event.locks_at
-            : notification.event.locked_at
-          : notification.event.ends_at,
-    },
-  };
-}

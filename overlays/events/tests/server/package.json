@@ -9,6 +9,7 @@
     "ws": "^8.5.0"
   },
   "devDependencies": {
-    "@types/express": "^4.17.14"
+    "@types/express": "^4.17.14",
+    "@types/ws": "^8.5.3"
   }
 }

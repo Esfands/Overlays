@@ -2,9 +2,13 @@
   "private": true,
   "license": "MIT",
   "scripts": {
+    "postinstall": "cd tests/server && yarn install",
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build": "vite build",
+    "server:start": "cd server && yarn start",
+    "server:trigger": "cd server && yarn trigger"
   },
   "eslintConfig": {
     "extends": [

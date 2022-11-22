@@ -1,9 +1,11 @@
-$edgeSize: 30px;
+@import './marquee';
 
-$slideDuration: 0.5s;
-$heightDuration: 1s;
-$marginDuration: 0.4s;
-$delay: $slideDuration;
+$-edgeSize: 30px;
+
+$-slideDuration: 0.5s;
+$-heightDuration: 1s;
+$-marginDuration: 0.4s;
+$-delay: $-slideDuration;
 
 .event-enter {
   right: -110% !important;
@@ -12,22 +14,22 @@ $delay: $slideDuration;
 
   &-active,
   &-done {
-    right: calc(0% + $edgeSize) !important;
-    margin-top: $edgeSize;
+    right: calc(0% + $-edgeSize) !important;
+    margin-top: $-edgeSize;
     max-height: 300px;
   }
 
   &-active {
     transition:
-      margin-top $marginDuration ease,
-      max-height $heightDuration ease,
-      right $slideDuration ease $delay,
+      margin-top $-marginDuration ease,
+      max-height $-heightDuration ease,
+      right $-slideDuration ease $-delay,
   }
 }
 
 .event-exit {
-  right: calc(0% + $edgeSize) !important;
-  margin-top: $edgeSize;
+  right: calc(0% + $-edgeSize) !important;
+  margin-top: $-edgeSize;
   max-height: 300px;
 
   &-active,
@@ -39,9 +41,9 @@ $delay: $slideDuration;
 
   &-active {
     transition:
-      right $slideDuration ease,
-      margin-top $marginDuration ease $delay,
-      max-height $heightDuration ease $delay;
+      right $-slideDuration ease,
+      margin-top $-marginDuration ease $-delay,
+      max-height $-heightDuration ease $-delay;
   }
 }
 
@@ -55,7 +57,7 @@ $delay: $slideDuration;
   }
 
   &-active {
-    transition: left $slideDuration ease;
+    transition: left $-slideDuration ease;
   }
 }
 

@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import useEvents from './util/hooks/useEvents';
-import Events from './overlays/events/components/App';
+import Events from './overlays/events';
 
-import './styles.scss';
+import './styles/styles.scss';
 
 const BG_COLOR = process.env.NODE_ENV === 'production' ? 'transparent' : 'dark';
 

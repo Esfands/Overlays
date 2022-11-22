@@ -1,3 +1,8 @@
+@use 'bootstrap/scss/bootstrap.scss';
+
+$-color-believe: #387aff;
+$-color-doubt: #f5009b;
+
 .prediction {
   .content {
     margin-bottom: 1em;
@@ -7,8 +12,8 @@
     width: 50%;
 
     &:first-child {
-      color: $color-believe;
-      fill: $color-believe;
+      color: $-color-believe;
+      fill: $-color-believe;
       border-right: 2px solid rgba(255, 255, 255, 0.1);
       @extend .pe-2;
 
@@ -19,8 +24,8 @@
     }
 
     &:last-child {
-      color: $color-doubt;
-      fill: $color-doubt;
+      color: $-color-doubt;
+      fill: $-color-doubt;
       @extend .ps-2;
 
       .option-title {
@@ -74,11 +79,11 @@
     }
 
     .pct-bar-side:first-child {
-      background-color: $color-believe;
+      background-color: $-color-believe;
     }
 
     .pct-bar-side:last-child {
-      background-color: $color-doubt;
+      background-color: $-color-doubt;
     }
   }
 }

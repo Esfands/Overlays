@@ -1,8 +1,10 @@
+@use './prediction';
+@use './poll';
+@use './marquee';
+@use './transitions';
+
 $bodyPadding: 20px;
 $headPaddingX: 6px;
-
-$color-believe: #387aff;
-$color-doubt: #f5009b;
 
 * {
   padding: 0;
@@ -73,9 +75,3 @@ h1, h2, h3, h4, h5, h6 {
 .text-shadow {
   text-shadow: 2px 2px 0px #000000;
 }
-
-@import './prediction.scss';
-@import './poll.scss';
-@import './marquee.scss';
-@import './transitions.scss';
-@import 'bootstrap/scss/bootstrap.scss';

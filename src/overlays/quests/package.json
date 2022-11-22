@@ -1,9 +1,0 @@
-{
-  "name": "quests-overlay",
-  "version": "0.1.0",
-  "license": "MIT",
-  "main": "src/index.ts",
-  "scripts": {
-    "build": "vite build"
-  }
-}

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import useEvents from './util/hooks/useEvents';
-import Events from '../overlays/events';
+import Events from './overlays/events/components/App';
 
 import './styles.scss';
 

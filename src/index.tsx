@@ -4,7 +4,7 @@ import Events from '../overlays/events';
 
 import './styles.scss';
 
-const BG_COLOR = process.env.NODE_ENV === 'development' ? 'dark' : 'transparent';
+const BG_COLOR = process.env.NODE_ENV === 'production' ? 'transparent' : 'dark';
 
 function App() {
   return (

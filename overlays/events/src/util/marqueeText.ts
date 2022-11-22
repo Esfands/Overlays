@@ -2,9 +2,14 @@
 
 import { formatCurrency } from "./formatters";
 
-const getRandomElement = (arr) => arr[Math.floor(Math.random() * arr.length)];
+const getRandomElement = (arr: any[]) => arr[Math.floor(Math.random() * arr.length)];
 
-export const getOutcomeText = (winnerName, winnerAmt, loserName, loserAmt) => {
+export const getOutcomeText = (
+  winnerName: string,
+  winnerAmt: number,
+  loserName: string,
+  loserAmt: number,
+) => {
   const formattedWinnerAmt = formatCurrency(winnerAmt);
   const formattedLoserAmt = formatCurrency(loserAmt);
 
@@ -25,7 +30,7 @@ export const getOutcomeText = (winnerName, winnerAmt, loserName, loserAmt) => {
   return `${winnerText} ${loserText}`;
 };
 
-export const getRefundText = (total) => {
+export const getRefundText = (total: number) => {
   const formattedTotal = formatCurrency(total);
 
   return getRandomElement([

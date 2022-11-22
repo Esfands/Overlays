@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import type { WebSocketHook, EventData } from '../types';
 
 const SERVER_TIMEOUT_HOURS = 23;
 const RETRY_SECONDS = 15;
@@ -8,12 +9,13 @@ const WEBSOCKET_URL =
     ? 'wss://api.retpaladinbot.com/esfandevents'
     : 'ws://localhost:8080/eventsub';
 
-const useWebSocket = () => {
-  const [event, setEvent] = useState(null);
+const useWebSocket = (): WebSocketHook => {
+  const [event, setEvent] = useState<EventData>(null);
   const [connected, setConnected] = useState(false);
 
   useEffect(() => {
-    let keepAlive, retry;
+    let keepAlive: NodeJS.Timeout;
+    let retry: NodeJS.Timeout;
     let ws = new WebSocket(WEBSOCKET_URL);
 
     ws.onopen = (e) => {

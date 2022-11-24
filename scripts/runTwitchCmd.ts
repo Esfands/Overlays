@@ -24,10 +24,18 @@ if (args.length === 0 || !eventTypes.includes(args[0])) {
   process.exit(0);
 }
 
-exec(
-  `twitch event trigger ${args[0]} \
-  -c ${isProgressEvent && args[1] ? args[1] : 1} \
-  -F http://localhost:8080/eventsub \
-  -s ${process.env.TWITCH_EVENTSUB_SECRET}`,
-  (err) => err && console.error(err)
-);
+const command = [
+  `twitch event trigger ${args[0]}`,
+  `-c ${isProgressEvent && args[1] ? args[1] : 1}`,
+  `-F http://localhost:8000/eventsub`,
+  '-t 38746172',
+  `-s ${process.env.TWITCH_EVENTSUB_SECRET}`,
+].join(' ');
+
+exec(command, (err) => {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log(command);
+  }
+});

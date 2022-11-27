@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 
-import { formatCurrency } from "./formatters";
+import { formatCurrency } from './formatters';
 
 const getRandomElement = (arr: any[]) => arr[Math.floor(Math.random() * arr.length)];
 
@@ -8,7 +8,7 @@ export const getOutcomeText = (
   winnerName: string,
   winnerAmt: number,
   loserName: string,
-  loserAmt: number,
+  loserAmt: number
 ) => {
   const formattedWinnerAmt = formatCurrency(winnerAmt);
   const formattedLoserAmt = formatCurrency(loserAmt);
@@ -36,6 +36,6 @@ export const getRefundText = (total: number) => {
   return getRandomElement([
     `Up and coming Twitch streamer Esfand "Sukhbeer" TV admits to scamming viewers out of ${formattedTotal} Ret Coin. Refunds to follow shortly.`,
     `Local Iranian male (5'6", long black hair) last seen robbing a bank with ${formattedTotal} Ret Coin. Likely wearing a black t-shirt and red shorts.`,
-    `Short, dark-haired male closely resembling Lord Farquad from the movie series Shrek seen quiety stealing ${formattedTotal} Ret Coin from Twitch viewers.`
+    `Short, dark-haired male closely resembling Lord Farquad from the movie series Shrek seen quiety stealing ${formattedTotal} Ret Coin from Twitch viewers.`,
   ]);
 };

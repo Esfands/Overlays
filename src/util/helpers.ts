@@ -1,4 +1,4 @@
-import { MessageCode, MessageCollection, WebSocketMessage } from "./types";
+import { MessageCode, MessageCollection, WebSocketMessage } from './types';
 
 export function buildMessage(code: MessageCode, data: any): WebSocketMessage {
   return {
@@ -8,10 +8,7 @@ export function buildMessage(code: MessageCode, data: any): WebSocketMessage {
   };
 }
 
-export function mergeMessage(
-  collection: MessageCollection,
-  data: any
-): MessageCollection {
+export function mergeMessage(collection: MessageCollection, data: any): MessageCollection {
   let shortTopic: string = data.topic.replace(/\.\w+$/, '');
 
   if (shortTopic.startsWith('channel')) {
@@ -19,6 +16,6 @@ export function mergeMessage(
   }
 
   return Object.assign({}, collection, {
-    [shortTopic]: data
+    [shortTopic]: data,
   });
 }

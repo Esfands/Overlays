@@ -35,10 +35,7 @@ const Marquee = ({ data }) => {
           <span>BREAKING NEWS</span>
         </div>
         <div className="position-relative w-100">
-          <span
-            className="marquee-text position-absolute text-nowrap"
-            ref={textRef}
-          >
+          <span className="marquee-text position-absolute text-nowrap" ref={textRef}>
             {text}
           </span>
         </div>

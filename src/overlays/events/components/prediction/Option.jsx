@@ -5,9 +5,7 @@ import Icons from '../Icons';
 
 const Option = ({ data, totalPts, isWinner }) => {
   const percentage = formatPercentage(data.channel_points, totalPts);
-  const ratio = data.channel_points
-    ? `1:${formatDecimal(totalPts / data.channel_points)}`
-    : null;
+  const ratio = data.channel_points ? `1:${formatDecimal(totalPts / data.channel_points)}` : null;
 
   return (
     <div className="option d-flex flex-column justify-content-between">

@@ -11,12 +11,12 @@ const INITIAL_MESSAGES: MessageCollection = {
 
 const TOPICS = [
   'channel.poll.begin',
-	'channel.poll.progress',
-	'channel.poll.end',
-	'channel.prediction.begin',
-	'channel.prediction.progress',
-	'channel.prediction.lock',
-	'channel.prediction.end',
+  'channel.poll.progress',
+  'channel.poll.end',
+  'channel.prediction.begin',
+  'channel.prediction.progress',
+  'channel.prediction.lock',
+  'channel.prediction.end',
 ];
 
 const WEBSOCKET_URL =
@@ -60,4 +60,4 @@ export default function useMessageCollection(): MessageCollectionHook {
 
   const connected = readyState === ReadyState.OPEN;
   return [messages, connected];
-};
+}

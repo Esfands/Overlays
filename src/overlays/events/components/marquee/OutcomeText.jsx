@@ -5,12 +5,8 @@ const OutcomeText = ({ data }) => {
   const [text, setText] = useState(null);
 
   useEffect(() => {
-    const winningOutcome = data?.outcomes.find(
-      (x) => x.id === data?.winning_outcome_id
-    );
-    const losingOutcome = data?.outcomes.find(
-      (x) => x.id !== data?.winning_outcome_id
-    );
+    const winningOutcome = data?.outcomes.find((x) => x.id === data?.winning_outcome_id);
+    const losingOutcome = data?.outcomes.find((x) => x.id !== data?.winning_outcome_id);
 
     const biggestWinner =
       winningOutcome?.top_predictors?.sort(
@@ -34,10 +30,7 @@ const OutcomeText = ({ data }) => {
   return (
     <>
       {text}
-      <img
-        src="https://cdn.betterttv.net/emote/5fa5985842cf82644d86e7b4/1x"
-        alt="PepePoint"
-      />
+      <img src="https://cdn.betterttv.net/emote/5fa5985842cf82644d86e7b4/1x" alt="PepePoint" />
     </>
   );
 };

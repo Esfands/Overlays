@@ -8,13 +8,13 @@ Overlay for predictions and polls.
 ### Workflow
 
 1. Run `yarn server:trigger [event type] [count]` to trigger a Twitch event with test data in real time.
-    - prediction-begin
-    - prediction-progress
-    - prediction-lock
-    - prediction-end
-    - poll-begin
-    - poll-lock
-    - poll-end
+   - prediction-begin
+   - prediction-progress
+   - prediction-lock
+   - prediction-end
+   - poll-begin
+   - poll-lock
+   - poll-end
 
 ### Notes
 

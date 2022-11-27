@@ -2,12 +2,12 @@ export type WebSocketMessage = {
   d: any;
   mc: MessageCode;
   t: number;
-}
+};
 
 export type MessageBody = {
   topic: MessageTopic;
   payload: Record<string, any>;
-}
+};
 
 export enum MessageCode {
   DISPATCH = 1,
@@ -34,7 +34,7 @@ export type MessageTopic =
   | 'channel.prediction.begin'
   | 'channel.prediction.progress'
   | 'channel.prediction.lock'
-  | 'channel.prediction.end'
+  | 'channel.prediction.end';
 
 export type WebSocketHook = [EventData, boolean];
 export type MessageCollectionHook = [MessageCollection, boolean];
@@ -45,4 +45,4 @@ export type MessageCollection = {
   poll: EventData;
   prediction: EventData;
   quests: EventData;
-}
+};

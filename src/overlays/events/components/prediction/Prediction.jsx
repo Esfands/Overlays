@@ -10,9 +10,7 @@ const Prediction = ({ data }) => {
   }, 0);
 
   const isWinner = useCallback(
-    (option) =>
-      data?.event.endsWith('end') &&
-      option.id === data.payload.winning_outcome_id,
+    (option) => data?.event.endsWith('end') && option.id === data.payload.winning_outcome_id,
     [data]
   );
 
@@ -20,12 +18,7 @@ const Prediction = ({ data }) => {
     <Event type="prediction" data={data}>
       <div className="content d-flex">
         {data?.payload.outcomes.map((data) => (
-          <Option
-            key={data.id}
-            data={data}
-            totalPts={totalPts}
-            isWinner={isWinner(data)}
-          />
+          <Option key={data.id} data={data} totalPts={totalPts} isWinner={isWinner(data)} />
         ))}
       </div>
       <div className="pct-bar d-flex">

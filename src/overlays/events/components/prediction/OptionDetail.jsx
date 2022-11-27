@@ -1,8 +1,7 @@
 import { formatShortNumber } from '../../util/formatters';
 
 const OptionDetail = ({ value, icon }) => {
-  const formattedVal =
-    typeof value === 'number' ? formatShortNumber(value) : value;
+  const formattedVal = typeof value === 'number' ? formatShortNumber(value) : value;
 
   return (
     <div className="detail-item d-flex align-items-center">

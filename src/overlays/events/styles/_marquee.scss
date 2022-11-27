@@ -30,6 +30,12 @@ $marqueeHeight: 2.6rem;
 }
 
 @keyframes textScroll {
-  from { left: 100%; transform: translateX(0%) }
-  to { left: 0%; transform: translateX(-100%) }
+  from {
+    left: 100%;
+    transform: translateX(0%);
+  }
+  to {
+    left: 0%;
+    transform: translateX(-100%);
+  }
 }

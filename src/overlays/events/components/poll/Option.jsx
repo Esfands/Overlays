@@ -7,19 +7,11 @@ const Option = ({ data, totalVotes, isWinner }) => {
 
   return (
     <div className="option position-relative">
-      <CSSTransition
-        appear
-        in={isWinner}
-        timeout={500}
-        classNames="poll-trophy"
-      >
+      <CSSTransition appear in={isWinner} timeout={500} classNames="poll-trophy">
         <Icons.Trophy className="position-absolute" />
       </CSSTransition>
       <div className="option-content position-relative">
-        <div
-          className="option-fill position-absolute"
-          style={{ width: percentage }}
-        />
+        <div className="option-fill position-absolute" style={{ width: percentage }} />
         <div className="option-text position-relative d-flex justify-content-between">
           <span className="w-75 text-truncate">{data.title}</span>
           <span>

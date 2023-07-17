@@ -1,12 +1,16 @@
 import { useEffect, useState } from 'react';
 import { formatTimer } from '../formatters';
-import type { EventDates } from '../types';
 
 type TimerHook = [
   string,
   React.Dispatch<React.SetStateAction<EventDates>>,
   React.Dispatch<React.SetStateAction<boolean>>,
 ];
+
+type EventDates = {
+  started: Date;
+  ends: Date;
+};
 
 const useTimer = (initialDates: EventDates): TimerHook => {
   const [dates, setDates] = useState(initialDates);

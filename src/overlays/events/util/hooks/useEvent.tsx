@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import useTimer from './useTimer';
-import type { MessageBody } from '@/util/types';
+import type { EventType } from '@/util/types';
 
 const HIDE_DELAY_MS = 10000;
 
-const useEvent = ({ topic, payload }: MessageBody): [boolean, string] => {
+const useEvent = (topic: EventType, payload: Record<string, any>): [boolean, string] => {
   const [visible, setVisible] = useState(false);
   const [timer, setTimerDates, setTimerActive] = useTimer(payload.dates);
 

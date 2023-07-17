@@ -20,21 +20,49 @@ export enum MessageCode {
 
 export type MessageBody = {
   topic: MessageTopic;
-  payload: Record<string, any>;
+  payload: Payload;
 };
 
-export type MessageTopic =
-  | 'quest.*'
-  | 'quest.created'
-  | 'quest.deleted'
-  | 'quest.updated'
-  | 'channel.poll.begin'
-  | 'channel.poll.progress'
-  | 'channel.poll.end'
-  | 'channel.prediction.begin'
-  | 'channel.prediction.progress'
-  | 'channel.prediction.lock'
-  | 'channel.prediction.end';
+export enum EventType {
+  PREDICTION = 'prediction',
+  POLL = 'poll',
+  CHANNEL_POINT = 'channel_point_reward_redemption',
+}
+
+export enum MessageTopic {
+  PREDICTION_BEGIN = 'channel.prediction.begin',
+  PREDICTION_PROGRESS = 'channel.prediction.progress',
+  PREDICTION_LOCK = 'channel.prediction.lock',
+  PREDICTION_END = 'channel.prediction.end',
+  POLL_BEGIN = 'channel.poll.begin',
+  POLL_PROGRESS = 'channel.poll.progress',
+  POLL_END = 'channel.poll.end',
+  CHANNEL_POINT_UPDATE = 'channel.channel_points_custom_reward_redemption.update',
+  CHANNEL_POINT_ADD = 'channel.channel_points_custom_reward_redemption.add',
+}
+
+export enum EventStatus {
+  OPEN = 'open',
+  LOCKED = 'locked',
+  CLOSED = 'closed',
+}
+
+export enum OverlayLayout {
+  REGULAR = 'regular',
+  COMPACT = 'compact',
+}
+
+export interface Payload {
+  eventType: EventType;
+  event: MessageTopic;
+  status: EventStatus;
+  format: OverlayLayout;
+  offset: 'top' | 'middle' | number;
+  id: string;
+  title: string;
+  payload: object;
+  dates: object;
+}
 
 export type MessageState = MessageBody | null;
 export type MessageContext = {

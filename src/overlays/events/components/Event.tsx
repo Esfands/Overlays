@@ -3,9 +3,10 @@ import { CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
 import useEvent from '../util/hooks/useEvent';
 import { selectMessage } from '@/state/selectors';
+import { EventType, OverlayLayout } from '@/util/types';
 
 type Props = React.PropsWithChildren & {
-  type: 'poll' | 'prediction';
+  type: EventType;
 };
 
 const Event = ({ type, children }: Props) => {
@@ -13,7 +14,7 @@ const Event = ({ type, children }: Props) => {
   const [visible, timer] = useEvent({ topic, payload });
 
   const eventClasses = classNames('event position-relative', type, {
-    [payload.format]: payload.format === 'compact',
+    [payload.format]: payload.format === OverlayLayout.COMPACT,
   });
 
   return (

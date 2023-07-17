@@ -2,7 +2,13 @@ import { CSSTransition } from 'react-transition-group';
 import { formatPercentage } from '../../util/formatters';
 import Icons from '../Icons';
 
-const Option = ({ data, totalVotes, isWinner }) => {
+type Props = {
+  data: Record<string, any>;
+  totalVotes: number;
+  isWinner: boolean;
+}
+
+const Option = ({ data, totalVotes, isWinner }: Props) => {
   const percentage = formatPercentage(data.votes, totalVotes);
 
   return (

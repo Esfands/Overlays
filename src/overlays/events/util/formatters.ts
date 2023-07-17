@@ -1,4 +1,4 @@
-import { MessageTopic } from 'src/util/types';
+import { MessageTopic } from '@/util/types';
 
 // Fix decimal to two places
 export const formatDecimal = (num: number): number =>

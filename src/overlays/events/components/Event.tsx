@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
 import useEvent from '../util/hooks/useEvent';
-import { selectMessage } from 'src/util/state/selectors';
+import { selectMessage } from '@/state/selectors';
 
 type Props = React.PropsWithChildren & {
   type: 'poll' | 'prediction';

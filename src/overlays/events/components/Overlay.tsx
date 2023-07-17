@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { selectTopic } from 'src/util/state/selectors';
+import { selectTopic } from '@/state/selectors';
 import classNames from 'classnames';
 import Prediction from './prediction/Prediction';
 import Poll from './poll/Poll';

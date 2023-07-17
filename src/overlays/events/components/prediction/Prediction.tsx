@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { selectMessage } from 'src/util/state/selectors';
+import { selectMessage } from '@/state/selectors';
 import { formatPercentage } from '../../util/formatters';
 import Event from '../Event';
 import Option from './Option';

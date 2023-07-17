@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import type { MessageBody } from 'src/util/types';
+import type { MessageBody } from '@/util/types';
 import Event from '../Event';
 import Option from './Option';
 

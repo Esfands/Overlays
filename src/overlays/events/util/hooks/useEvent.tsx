@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import useTimer from './useTimer';
-import type { MessageBody } from 'src/util/types';
+import type { MessageBody } from '@/util/types';
 
 const HIDE_DELAY_MS = 10000;
 

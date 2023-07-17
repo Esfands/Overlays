@@ -36,7 +36,6 @@ const useTimer = (initialDates: EventDates): TimerHook => {
     }
 
     return () => clearTimeout(ticker);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [seconds]);
 
   const minutes = Math.floor(seconds / 60);

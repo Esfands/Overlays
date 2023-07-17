@@ -3,7 +3,13 @@ import { formatDecimal, formatPercentage } from '../../util/formatters';
 import OptionDetail from './OptionDetail';
 import Icons from '../Icons';
 
-const Option = ({ data, totalPts, isWinner }) => {
+type Props = {
+  data: Record<string, any>;
+  totalPts: number;
+  isWinner: boolean;
+}
+
+const Option = ({ data, totalPts, isWinner }: Props) => {
   const percentage = formatPercentage(data.channel_points, totalPts);
   const ratio = data.channel_points ? `1:${formatDecimal(totalPts / data.channel_points)}` : null;
 

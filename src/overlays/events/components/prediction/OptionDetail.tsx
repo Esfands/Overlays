@@ -1,6 +1,11 @@
 import { formatShortNumber } from '../../util/formatters';
 
-const OptionDetail = ({ value, icon }) => {
+type Props = {
+  value: number;
+  icon: JSX.Element;
+}
+
+const OptionDetail = ({ value, icon }: Props) => {
   const formattedVal = typeof value === 'number' ? formatShortNumber(value) : value;
 
   return (

@@ -1,20 +1,11 @@
 import { useDispatch as useReduxDispatch } from 'react-redux';
-import { PayloadAction, configureStore, createSlice } from '@reduxjs/toolkit';
-import { MessageState } from '../types';
-
-const slice = createSlice({
-  name: 'message',
-  initialState: null as MessageState,
-  reducers: {
-    set: (state, action: PayloadAction<MessageState>) => action.payload,
-  },
-});
+import { configureStore } from '@reduxjs/toolkit';
+import { messageSlice } from './slices';
 
 const store = configureStore({
-  reducer: slice.reducer,
+  reducer: messageSlice.reducer,
 });
 
-export const { set: setMessage } = slice.actions;
 export const useDispatch: () => typeof store.dispatch = useReduxDispatch;
 
 export default store;

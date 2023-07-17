@@ -1,12 +1,7 @@
 export type WebSocketMessage = {
-  d: any;
+  d: MessageBody;
   mc: MessageCode;
   t: number;
-};
-
-export type MessageBody = {
-  topic: MessageTopic;
-  payload: Record<string, any>;
 };
 
 export enum MessageCode {
@@ -23,6 +18,11 @@ export enum MessageCode {
   UNSUBSCRIBE = 28,
 }
 
+export type MessageBody = {
+  topic: MessageTopic;
+  payload: Record<string, any>;
+};
+
 export type MessageTopic =
   | 'quest.*'
   | 'quest.created'
@@ -36,13 +36,8 @@ export type MessageTopic =
   | 'channel.prediction.lock'
   | 'channel.prediction.end';
 
-export type WebSocketHook = [EventData, boolean];
-export type MessageCollectionHook = [MessageCollection, boolean];
-
-export type EventData = Record<string, any> | null;
-
-export type MessageCollection = {
-  poll: EventData;
-  prediction: EventData;
-  quests: EventData;
+export type MessageState = MessageBody | null;
+export type MessageContext = {
+  message: MessageState;
+  setMessage(m: MessageState): void;
 };

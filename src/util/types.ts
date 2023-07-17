@@ -20,14 +20,8 @@ export enum MessageCode {
 
 export type MessageBody = {
   topic: MessageTopic;
-  payload: Payload;
+  payload: MessagePayload;
 };
-
-export enum EventType {
-  PREDICTION = 'prediction',
-  POLL = 'poll',
-  CHANNEL_POINT = 'channel_point_reward_redemption',
-}
 
 export enum MessageTopic {
   PREDICTION_BEGIN = 'channel.prediction.begin',
@@ -41,6 +35,24 @@ export enum MessageTopic {
   CHANNEL_POINT_ADD = 'channel.channel_points_custom_reward_redemption.add',
 }
 
+export interface MessagePayload {
+  eventType: EventType;
+  event: MessageTopic;
+  status: EventStatus;
+  format: OverlayLayout;
+  offset: 'top' | 'middle' | number;
+  id: string;
+  title: string;
+  payload: Record<string, any>;
+  dates: object;
+}
+
+export enum EventType {
+  PREDICTION = 'prediction',
+  POLL = 'poll',
+  CHANNEL_POINT = 'channel_point_reward_redemption',
+}
+
 export enum EventStatus {
   OPEN = 'open',
   LOCKED = 'locked',
@@ -50,18 +62,6 @@ export enum EventStatus {
 export enum OverlayLayout {
   REGULAR = 'regular',
   COMPACT = 'compact',
-}
-
-export interface Payload {
-  eventType: EventType;
-  event: MessageTopic;
-  status: EventStatus;
-  format: OverlayLayout;
-  offset: 'top' | 'middle' | number;
-  id: string;
-  title: string;
-  payload: object;
-  dates: object;
 }
 
 export type MessageState = MessageBody | null;

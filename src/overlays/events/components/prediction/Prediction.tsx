@@ -3,21 +3,22 @@ import { selectMessage } from '@/state/selectors';
 import { formatPercentage } from '../../util/formatters';
 import Event from '../Event';
 import Option from './Option';
+import { EventType } from '@/util/types';
 
 const Prediction = () => {
   const { topic, payload } = useSelector(selectMessage);
 
-  const totalPts = payload.outcomes.reduce((final: number, val: any) => {
+  const totalPts: number = payload.payload.outcomes.reduce((final: number, val: any) => {
     return final + (val.channel_points || 0);
   }, 0);
 
   const isWinner = (option: any) =>
-    topic.endsWith('end') && option.id === payload.winning_outcome_id;
+    topic.endsWith('end') && option.id === payload.payload.winning_outcome_id;
 
   return (
-    <Event type="prediction">
+    <Event type={EventType.PREDICTION}>
       <div className="content d-flex">
-        {payload.outcomes.map((outcome: any) => (
+        {payload.payload.outcomes.map((outcome: any) => (
           <Option
             key={outcome.id}
             data={outcome}
@@ -27,7 +28,7 @@ const Prediction = () => {
         ))}
       </div>
       <div className="pct-bar d-flex">
-        {payload.outcomes.map((outcome: any) => (
+        {payload.payload.outcomes.map((outcome: any) => (
           <div
             key={outcome.id}
             className="pct-bar-side"

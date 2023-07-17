@@ -7,11 +7,13 @@ type Props = {
   data: Record<string, any>;
   totalPts: number;
   isWinner: boolean;
-}
+};
 
 const Option = ({ data, totalPts, isWinner }: Props) => {
   const percentage = formatPercentage(data.channel_points, totalPts);
-  const ratio = data.channel_points ? `1:${formatDecimal(totalPts / data.channel_points)}` : null;
+  const ratio = data.channel_points
+    ? `1:${formatDecimal(totalPts / data.channel_points)}`
+    : undefined;
 
   return (
     <div className="option d-flex flex-column justify-content-between">

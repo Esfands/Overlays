@@ -1,18 +1,18 @@
+import { useSelector } from 'react-redux';
+import { selectTopic } from 'src/util/state/selectors';
 import classNames from 'classnames';
 import Prediction from './prediction/Prediction';
 import Poll from './poll/Poll';
 import Marquee from './marquee/Marquee';
-import type { MessageState } from 'src/util/types';
+import type { OverlayOffset } from '../util/types';
 
-type Props = {
-  message: MessageState;
-};
+const Overlay = () => {
+  const topic = useSelector(selectTopic);
 
-const App = ({ message }: Props) => {
-  const isPoll = message?.topic.includes('poll');
-  const isPrediction = message?.topic.includes('prediction');
+  const isPoll = topic.includes('poll');
+  const isPrediction = topic.includes('prediction');
 
-  const offset = 'top';
+  const offset: OverlayOffset = 'top';
 
   const eventListClasses = classNames({
     'no-event': !isPoll && !isPrediction,
@@ -25,13 +25,13 @@ const App = ({ message }: Props) => {
 
   return (
     <div className="d-flex flex-column justify-content-end align-items-end">
-      <Marquee message={message} />
+      <Marquee />
       <div id="events" className={eventListClasses} style={eventListStyle}>
-        <Prediction message={message} />
-        <Poll message={message} />
+        <Prediction />
+        <Poll />
       </div>
     </div>
   );
 };
 
-export default App;
+export default Overlay;

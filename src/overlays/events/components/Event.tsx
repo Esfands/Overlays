@@ -1,22 +1,19 @@
+import { useSelector } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
 import useEvent from '../util/hooks/useEvent';
-import type { MessageBody } from 'src/util/types';
+import { selectMessage } from 'src/util/state/selectors';
 
 type Props = React.PropsWithChildren & {
   type: 'poll' | 'prediction';
-  data: Partial<MessageBody>;
 };
 
-const Event = ({ type, data, children }: Props) => {
-  const [visible, timer] = useEvent(data);
-
-  if (!data.payload) {
-    return;
-  }
+const Event = ({ type, children }: Props) => {
+  const { topic, payload } = useSelector(selectMessage);
+  const [visible, timer] = useEvent({ topic, payload });
 
   const eventClasses = classNames('event position-relative', type, {
-    [data.payload.format]: data.payload.format === 'compact',
+    [payload.format]: payload.format === 'compact',
   });
 
   return (
@@ -31,16 +28,14 @@ const Event = ({ type, data, children }: Props) => {
       <div className={eventClasses}>
         <div className="event-head position-absolute d-flex justify-content-between">
           <div className="text-wrap">
-            <span className="top-tag event-type">
-              {data.payload.eventType.toUpperCase()}
-            </span>
+            <span className="top-tag event-type">{payload.eventType.toUpperCase()}</span>
           </div>
           <div className="text-wrap">
             <span className="top-tag time-left">{timer}</span>
           </div>
         </div>
         <div className="event-body">
-          <h1 className="title">{data.payload.title}</h1>
+          <h1 className="title">{payload.title}</h1>
           {children}
         </div>
       </div>

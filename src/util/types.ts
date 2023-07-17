@@ -65,7 +65,3 @@ export enum OverlayLayout {
 }
 
 export type MessageState = MessageBody | null;
-export type MessageContext = {
-  message: MessageState;
-  setMessage(m: MessageState): void;
-};

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
-import store from './util/state/store';
+import store from './state/store';
 import useMessage from './util/useMessage';
 import Overlays from './overlays';
 

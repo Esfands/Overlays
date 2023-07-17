@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import useWebSocket, { ReadyState } from 'react-use-websocket';
-import { setMessage, useDispatch } from './state/store';
+import { useDispatch } from '@/state/store';
+import { setMessage } from '@/state/slices';
 import { buildMessage } from './helpers';
 import { MessageCode } from './types';
 

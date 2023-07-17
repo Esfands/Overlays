@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { MessageState } from '../types';
+import { MessageState } from '@/util/types';
 
 export const messageSlice = createSlice({
   name: 'message',

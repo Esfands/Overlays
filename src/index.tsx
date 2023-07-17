@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import store from './state/store';
 import useMessage from './util/useMessage';
-import Overlays from './overlays';
+import Events from './overlays/events';
 
 import './styles/styles.scss';
 
@@ -15,7 +15,7 @@ const App = () => {
   return (
     <div className={`w-100 h-100 bg-${BG_COLOR}`}>
       {connected ? (
-        <Overlays />
+        <Events />
       ) : (
         <div className="no-connection position-absolute text-shadow">
           <h5 className="text-white">Custom overlay not connected</h5>

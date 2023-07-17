@@ -18,7 +18,7 @@ const App = () => {
         <Events />
       ) : (
         <div className="no-connection position-absolute text-shadow">
-          <h5 className="text-white">Custom overlay not connected</h5>
+          <h5 className="text-white">Events overlay not connected</h5>
         </div>
       )}
     </div>

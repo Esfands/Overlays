@@ -1,12 +1,14 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { MessageState } from '@/util/types';
+import type { OverlayPayload } from '@server/types';
+
+export type MessageState = OverlayPayload | {};
 
 export const messageSlice = createSlice({
   name: 'message',
-  initialState: null as MessageState,
+  initialState: {} as MessageState,
   reducers: {
-    setMessage: (state, action: PayloadAction<MessageState>) => action.payload,
+    set: (state, action: PayloadAction<MessageState>) => action.payload,
   },
 });
 
-export const { setMessage } = messageSlice.actions;
+export const { set: setMessage } = messageSlice.actions;

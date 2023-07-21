@@ -1,4 +1,3 @@
-import { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { selectEvent, selectPoll } from '@/state/selectors';
 import { Choice, EventStatus } from '@/types/eventsub';

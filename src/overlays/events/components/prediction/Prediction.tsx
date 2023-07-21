@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { selectPrediction } from '@/state/selectors';
-import { formatPercentage } from '../../util/formatters';
+import { formatPercentage } from '@events/util/formatters';
 import { EventType } from '@server/types';
 import type { Outcome } from '@/types/eventsub';
 

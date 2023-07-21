@@ -1,4 +1,4 @@
-import { MessageTopic } from '@/util/types';
+import type { EventTopic } from '@server/types';
 
 // Fix decimal to two places
 export const formatDecimal = (num: number): number =>
@@ -40,7 +40,7 @@ export const formatTimer = (minutes: number, seconds: number): string =>
   `${minutes}:${formatSeconds(seconds)}`;
 
 // Capitalize event type from topic
-export const formatEventType = (topic: MessageTopic) => {
+export const formatEventType = (topic: EventTopic) => {
   const type = topic.replace(/^\w+\.(\w+)\.\w+$/, '$1');
   return type.substring(0, 1).toUpperCase() + type.substring(1);
 };

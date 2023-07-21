@@ -1,38 +1,47 @@
 import { useSelector } from 'react-redux';
-import { CSSTransition } from 'react-transition-group';
+import {
+  selectEvent,
+  selectEventPayload,
+  selectEventType,
+  selectFormat,
+} from '@/state/selectors';
 import classNames from 'classnames';
-import useEvent from '../util/hooks/useEvent';
-import { selectMessage } from '@/state/selectors';
-import { EventType, OverlayLayout } from '@/util/types';
+import useEvent from '@events/util/hooks/useEvent';
+import type { EventType } from '@server/types';
+
+import { CSSTransition } from 'react-transition-group';
+import { createRef } from 'react';
 
 type Props = React.PropsWithChildren & {
   type: EventType;
 };
 
 const Event = ({ type, children }: Props) => {
-  const { topic, payload } = useSelector(selectMessage);
-  const [visible, timer] = useEvent({ topic, payload });
+  const eventType = useSelector(selectEventType);
+  const event = useSelector(selectEvent);
+  const format = useSelector(selectFormat);
+  const payload = useSelector(selectEventPayload);
 
-  const eventClasses = classNames('event position-relative', type, {
-    [payload.format]: payload.format === OverlayLayout.COMPACT,
-  });
+  const [visible, timer] = useEvent(event, payload);
+  const contentRef = createRef<HTMLDivElement>();
+
+  const eventClasses = classNames('event position-relative', type, format);
 
   return (
     <CSSTransition
+      nodeRef={contentRef}
       appear
       in={visible}
       timeout={4500}
-      mountOnEnter
-      unmountOnExit
       classNames="event"
     >
-      <div className={eventClasses}>
+      <div className={eventClasses} ref={contentRef}>
         <div className="event-head position-absolute d-flex justify-content-between">
-          <div className="text-wrap">
-            <span className="top-tag event-type">{payload.eventType.toUpperCase()}</span>
+          <div className="top-tag event-type">
+            <span>{eventType.toUpperCase()}</span>
           </div>
-          <div className="text-wrap">
-            <span className="top-tag time-left">{timer}</span>
+          <div className="top-tag event-timer">
+            <span>{timer}</span>
           </div>
         </div>
         <div className="event-body">

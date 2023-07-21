@@ -1,6 +1,6 @@
 import type { MessageState } from './slices';
 import type { OverlayPayload } from '@server/types';
-import type { PredictionEvent, PredictionEndEvent } from '@/types/eventsub';
+import type { PredictionEvent, PredictionEndEvent, PollEvent } from '@/types/eventsub';
 
 const selectGuaranteedPayload = (state: MessageState) => state as OverlayPayload;
 
@@ -23,5 +23,11 @@ export const selectPrediction = (state: MessageState) => {
 export const selectPredictionEnd = (state: MessageState) => {
   const overlayPayload = selectGuaranteedPayload(state);
   const twitchPayload = overlayPayload.payload as PredictionEndEvent;
+  return twitchPayload;
+};
+
+export const selectPoll = (state: MessageState) => {
+  const overlayPayload = selectGuaranteedPayload(state);
+  const twitchPayload = overlayPayload.payload as PollEvent;
   return twitchPayload;
 };

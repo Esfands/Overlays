@@ -1,32 +1,38 @@
 import { useCallback } from 'react';
-import type { MessageBody } from '@/util/types';
+import { useSelector } from 'react-redux';
+import { selectEvent, selectPoll } from '@/state/selectors';
+import { Choice, EventStatus } from '@/types/eventsub';
+import { EventType } from '@server/types';
+
 import Event from '../Event';
 import Option from './Option';
 
-type Props = Partial<MessageBody>;
+const Poll = () => {
+  const topic = useSelector(selectEvent);
+  const { choices } = useSelector(selectPoll);
 
-const Poll = ({ topic, payload }: Props) => {
-  const { choices, status } = payload || {};
-  const totalVotes = payload?.choices.reduce(
-    (total: number, choice: any) => total + choice.votes,
-    0
-  );
+  const eventStatus = topic.replace(/.+\./, '') as EventStatus;
 
-  const isWinner = useCallback(
-    (option: any) =>
-      payload?.status !== 'open' &&
-      payload?.choices.reduce(
-        (winner: any, choice: any) => (choice.votes > winner.votes ? choice : winner),
-        option
-      ).votes === option.votes,
-    [payload?.status, payload?.choices]
-  );
+  const totalVotes = choices.reduce((total, choice) => total + (choice.votes || 0), 0);
+
+  const isWinner = (option: Choice<any>) =>
+    eventStatus === EventStatus.END &&
+    'votes' in option &&
+    choices.reduce(
+      (winner, choice) => (choice.votes > winner.votes ? choice : winner),
+      option,
+    ).votes === option.votes;
 
   return (
-    <Event type="poll" data={{ topic, payload }}>
+    <Event type={EventType.POLL}>
       <div className="content">
-        {payload.choices.map((choice: any) => (
-          <Option key={choice.id} data={choice} totalVotes={totalVotes} isWinner={isWinner(choice)} />
+        {choices.map((choice) => (
+          <Option
+            key={choice.id}
+            data={choice}
+            totalVotes={totalVotes}
+            isWinner={isWinner(choice)}
+          />
         ))}
       </div>
     </Event>

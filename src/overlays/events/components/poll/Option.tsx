@@ -1,15 +1,18 @@
+import { formatPercentage } from '@events/util/formatters';
+import { Choice } from '@/types/eventsub';
+
 import { CSSTransition } from 'react-transition-group';
-import { formatPercentage } from '../../util/formatters';
 import Icons from '../Icons';
 
 type Props = {
-  data: Record<string, any>;
+  data: Choice<any>;
   totalVotes: number;
   isWinner: boolean;
-}
+};
 
 const Option = ({ data, totalVotes, isWinner }: Props) => {
-  const percentage = formatPercentage(data.votes, totalVotes);
+  const percentage = 'votes' in data ? formatPercentage(data.votes, totalVotes) : '0%';
+  const votes = 'votes' in data ? data.votes : 0;
 
   return (
     <div className="option position-relative">
@@ -21,7 +24,7 @@ const Option = ({ data, totalVotes, isWinner }: Props) => {
         <div className="option-text position-relative d-flex justify-content-between">
           <span className="w-75 text-truncate">{data.title}</span>
           <span>
-            {percentage} ({data.votes || 0})
+            {percentage} ({votes})
           </span>
         </div>
       </div>

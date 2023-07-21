@@ -1,54 +1,59 @@
 import { useEffect, useState } from 'react';
+import { getDates } from '../dates';
 import useTimer from './useTimer';
-import type { EventType } from '@/util/types';
+import { EventTopic } from '@server/types';
+import {
+  EventStatus,
+  PredictionEndStatus,
+  PollEndStatus,
+  type PredictionEvent,
+  type PollEvent,
+  type PredictionEndEvent,
+  type PollEndEvent,
+} from '@/types/eventsub';
 
 const HIDE_DELAY_MS = 10000;
 
-const useEvent = (topic: EventType, payload: Record<string, any>): [boolean, string] => {
+const useEvent = (topic: EventTopic, payload: PredictionEvent | PollEvent) => {
   const [visible, setVisible] = useState(false);
-  const [timer, setTimerDates, setTimerActive] = useTimer(payload.dates);
+  const [timer, setTimerDates] = useTimer();
 
-  let timerText = '';
+  const eventStatus = topic.replace(/.+\./, '') as EventStatus;
 
   useEffect(() => {
-    const topicType = topic.replace(/.+\./, '');
-
-    switch (topicType) {
-      case 'begin':
+    switch (eventStatus) {
+      case EventStatus.BEGIN:
+        setTimerDates(getDates(payload));
         setVisible(true);
-        setTimerDates(payload.dates);
         break;
-
-      case 'lock':
-        setTimerActive(false);
+      case EventStatus.LOCK:
         setTimeout(() => setVisible(false), HIDE_DELAY_MS);
         break;
-
-      case 'end':
-        setTimerActive(false);
+      case EventStatus.END:
         setVisible(true);
         setTimeout(() => setVisible(false), HIDE_DELAY_MS);
         break;
     }
-  }, [payload.dates, setTimerActive, setTimerDates]);
+  }, [topic]);
 
-  useEffect(() => {
-    switch (payload.status) {
-      case undefined:
-        timerText = timer;
-        break;
-      case 'resolved':
+  let timerText = timer;
+
+  if (eventStatus === EventStatus.END) {
+    const endPayload = payload as PredictionEndEvent | PollEndEvent;
+
+    switch (endPayload.status) {
+      case PredictionEndStatus.RESOLVED:
+      case PollEndStatus.COMPLETED:
         timerText = 'RESULT';
         break;
-      case 'canceled':
+      case PredictionEndStatus.CANCELED:
         timerText = 'REFUNDED';
-        break;
-      default:
-        timerText = 'CLOSED';
     }
-  }, [visible]);
+  } else if (eventStatus === EventStatus.LOCK) {
+    timerText = 'LOCKED';
+  }
 
-  return [visible, timerText];
+  return [visible, timerText] as const;
 };
 
 export default useEvent;

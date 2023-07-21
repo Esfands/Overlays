@@ -16,7 +16,7 @@ const Prediction = () => {
     0,
   );
 
-  const isWinner = (option: any) =>
+  const isWinner = (option: Outcome<any>) =>
     'winning_outcome_id' in prediction && option.id === prediction.winning_outcome_id;
 
   return (

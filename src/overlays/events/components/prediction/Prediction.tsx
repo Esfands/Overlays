@@ -1,34 +1,38 @@
 import { useSelector } from 'react-redux';
-import { selectMessage } from '@/state/selectors';
+import { selectPrediction } from '@/state/selectors';
 import { formatPercentage } from '../../util/formatters';
+import { EventType } from '@server/types';
+import type { Outcome } from '@/types/eventsub';
+
 import Event from '../Event';
 import Option from './Option';
-import { EventType } from '@/util/types';
 
 const Prediction = () => {
-  const { topic, payload } = useSelector(selectMessage);
+  const prediction = useSelector(selectPrediction);
+  const outcomes = prediction.outcomes as Outcome<any>[];
 
-  const totalPts: number = payload.payload.outcomes.reduce((final: number, val: any) => {
-    return final + (val.channel_points || 0);
-  }, 0);
+  const totalPts: number = outcomes.reduce(
+    (final, val) => final + (val.channel_points || 0),
+    0,
+  );
 
   const isWinner = (option: any) =>
-    topic.endsWith('end') && option.id === payload.payload.winning_outcome_id;
+    'winning_outcome_id' in prediction && option.id === prediction.winning_outcome_id;
 
   return (
     <Event type={EventType.PREDICTION}>
       <div className="content d-flex">
-        {payload.payload.outcomes.map((outcome: any) => (
+        {outcomes.map((outcome) => (
           <Option
             key={outcome.id}
-            data={outcome}
+            outcome={outcome}
             totalPts={totalPts}
             isWinner={isWinner(outcome)}
           />
         ))}
       </div>
       <div className="pct-bar d-flex">
-        {payload.payload.outcomes.map((outcome: any) => (
+        {outcomes.map((outcome: any) => (
           <div
             key={outcome.id}
             className="pct-bar-side"

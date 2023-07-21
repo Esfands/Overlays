@@ -1,4 +1,4 @@
-import { formatShortNumber } from '../../util/formatters';
+import { formatShortNumber } from '@events/util/formatters';
 
 type Props = {
   value?: number | string;

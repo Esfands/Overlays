@@ -18,9 +18,25 @@
     "paths": {
       "@/*": [
         "./src/*"
+      ],
+      "@events/*": [
+        "./src/overlays/events/*"
+      ],
+      "@server/*": [
+        "./server/*"
+      ],
+      "@types/*": [
+        "./types/*"
       ]
     }
   },
-  "include": ["**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "include": ["**/*.ts", "**/*.tsx", "types/**.d.ts"],
+  "exclude": ["node_modules"],
+  "ts-node": {
+    "files": true,
+    "moduleTypes": {
+      "scripts/*": "cjs",
+      "server/*": "cjs"
+    }
+  }
 }

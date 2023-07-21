@@ -6,6 +6,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "lint": "prettier --write .",
+    "server:start": "ts-node server/index.ts",
     "server:trigger": "ts-node scripts/runTwitchCmd.ts"
   },
   "eslintConfig": {

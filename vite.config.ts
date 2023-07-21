@@ -6,6 +6,20 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
   resolve: {
-    alias: [{ find: '@', replacement: fileURLToPath(new URL('./src', import.meta.url)) }],
+    alias: [
+      { find: '@', replacement: fileURLToPath(new URL('./src', import.meta.url)) },
+      {
+        find: '@events',
+        replacement: fileURLToPath(new URL('./src/overlays/events', import.meta.url)),
+      },
+      {
+        find: '@server',
+        replacement: fileURLToPath(new URL('./server', import.meta.url)),
+      },
+      {
+        find: '@types',
+        replacement: fileURLToPath(new URL('./types', import.meta.url)),
+      },
+    ],
   },
 });

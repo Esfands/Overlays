@@ -69,24 +69,32 @@ export type PredictionEvent =
   | PredictionLockEvent
   | PredictionEndEvent;
 
-interface BasePollEvent extends BaseEvent {
-  choices: {
-    id: string;
-    title: string;
-    channel_points_votes: number;
-    votes: number;
-  }[];
+interface BaseChoice {
+  id: string;
+  title: string;
+}
+
+export type Choice<T extends EventStatus> = BaseChoice &
+  (T extends Omit<EventStatus, EventStatus.BEGIN>
+    ? {
+        channel_points_votes: number;
+        votes: number;
+      }
+    : {});
+
+interface BasePollEvent<T extends EventStatus> extends BaseEvent {
+  choices: Choice<T>[];
   channel_points_voting: {
     is_enabled: boolean;
     amount_per_vote: number;
   };
 }
 
-export interface PollBeginEvent extends BasePollEvent {
+export interface PollBeginEvent extends BasePollEvent<EventStatus.BEGIN> {
   ends_at: string;
 }
 
-export interface PollProgressEvent extends BasePollEvent {
+export interface PollProgressEvent extends BasePollEvent<EventStatus.PROGRESS> {
   ends_at: string;
 }
 
@@ -96,7 +104,7 @@ export enum PollEndStatus {
   TERMINATED = 'terminated',
 }
 
-export interface PollEndEvent extends BasePollEvent {
+export interface PollEndEvent extends BasePollEvent<EventStatus.END> {
   status: PollEndStatus;
   ended_at: string;
 }

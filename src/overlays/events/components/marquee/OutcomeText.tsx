@@ -1,37 +1,30 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { selectPayload } from '@/state/selectors';
-import { getOutcomeText } from '../../util/marqueeText';
-
-type Outcome = {
-  id: string;
-};
-
-type Predictor = {
-  channel_points_won: number;
-  channel_points_used: number;
-};
+import { selectPredictionEnd } from '@/state/selectors';
+import { getOutcomeText } from '@events/util/marqueeText';
+import type { EventStatus, Outcome } from '@/types/eventsub';
 
 const OutcomeText = () => {
-  const payload = useSelector(selectPayload);
+  const prediction = useSelector(selectPredictionEnd);
   const [text, setText] = useState<string | null>(null);
 
   useEffect(() => {
-    const winningOutcome = payload?.outcomes.find(
-      (x: Outcome) => x.id === payload?.winning_outcome_id,
-    );
-    const losingOutcome = payload?.outcomes.find(
-      (x: Outcome) => x.id !== payload?.winning_outcome_id,
-    );
+    const winningOutcome = prediction.outcomes.find(
+      (x) => x.id === prediction.winning_outcome_id,
+    ) as Outcome<EventStatus.END>;
+    const losingOutcome = prediction.outcomes.find(
+      (x) => x.id !== prediction.winning_outcome_id,
+    ) as Outcome<EventStatus.END>;
 
-    const biggestWinner =
-      winningOutcome?.top_predictors?.sort(
-        (a: Predictor, b: Predictor) => a.channel_points_won < b.channel_points_won,
-      )[0] || {};
-    const biggestLoser =
-      losingOutcome?.top_predictors?.sort(
-        (a: Predictor, b: Predictor) => a.channel_points_used < b.channel_points_used,
-      )[0] || {};
+    const topWinners = [...winningOutcome.top_predictors];
+    const topLosers = [...losingOutcome.top_predictors];
+
+    const biggestWinner = topWinners.sort(
+      (a, b) => a.channel_points_won - b.channel_points_won,
+    )[0];
+    const biggestLoser = topLosers.sort(
+      (a, b) => a.channel_points_used - b.channel_points_used,
+    )[0];
 
     setText(
       getOutcomeText(
@@ -41,7 +34,7 @@ const OutcomeText = () => {
         biggestLoser.channel_points_used,
       ),
     );
-  }, [payload]);
+  }, [prediction]);
 
   return (
     <>

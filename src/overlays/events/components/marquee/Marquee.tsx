@@ -1,34 +1,41 @@
 import { useState, useEffect, createRef } from 'react';
 import { useSelector } from 'react-redux';
-import { selectPayload } from '@/state/selectors';
-import { CSSTransition } from 'react-transition-group';
+import { selectEvent, selectEventType, selectPrediction } from '@/state/selectors';
+import { PredictionEndStatus } from '@/types/eventsub';
 
+import { CSSTransition } from 'react-transition-group';
 import OutcomeText from './OutcomeText';
 import RefundText from './RefundText';
 
 const Marquee = () => {
-  const payload = useSelector(selectPayload);
+  const eventType = useSelector(selectEventType);
+  const event = useSelector(selectEvent);
+  const prediction = useSelector(selectPrediction);
+
   const [visible, setVisible] = useState(false);
+
   const textRef = createRef<HTMLSpanElement>();
 
   useEffect(() => {
-    if (payload?.eventType === 'prediction') {
-      if (payload.event.endsWith('begin')) {
+    if (eventType === 'prediction') {
+      if (event.endsWith('begin')) {
         textRef.current?.classList.remove('scroll-text');
-      } else if (payload.event.endsWith('end')) {
+      } else if (event.endsWith('end')) {
         textRef.current?.classList.add('scroll-text');
         setVisible(true);
         setTimeout(() => setVisible(false), 15000);
       }
     }
-  }, [payload]);
+  }, [eventType, event]);
 
   let text = null;
 
-  if (payload?.status === 'resolved') {
-    text = <OutcomeText />;
-  } else if (payload?.status === 'canceled') {
-    text = <RefundText />;
+  if ('status' in prediction) {
+    if (prediction.status === PredictionEndStatus.RESOLVED) {
+      text = <OutcomeText />;
+    } else if (prediction.status === PredictionEndStatus.CANCELED) {
+      text = <RefundText />;
+    }
   }
 
   return (

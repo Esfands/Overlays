@@ -1,15 +1,11 @@
 import { useSelector } from 'react-redux';
-import { selectPayload } from '@/state/selectors';
-import { getRefundText } from '../../util/marqueeText';
-
-type Outcome = {
-  channel_points: number;
-};
+import { selectPredictionEnd } from '@/state/selectors';
+import { getRefundText } from '@events/util/marqueeText';
 
 const RefundText = () => {
-  const payload = useSelector(selectPayload);
-  const total = payload?.outcomes.reduce(
-    (sum: number, option: Outcome) => sum + option.channel_points,
+  const prediction = useSelector(selectPredictionEnd);
+  const total = prediction.outcomes.reduce(
+    (sum: number, outcome) => sum + outcome.channel_points,
     0,
   );
 

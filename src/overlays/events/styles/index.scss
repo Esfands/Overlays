@@ -28,8 +28,6 @@ h1, h2, h3, h4, h5, h6 {
 
 .event {
   width: 375px;
-  background-color: #151822;
-  border-radius: 15px;
   right: -110%;
   margin-top: 0px;
   max-height: 0px;
@@ -42,16 +40,21 @@ h1, h2, h3, h4, h5, h6 {
 
   .event-head {
     top: -12px;
-    padding: 0px ($bodyPadding - $headPaddingX);
     width: 100%;
+    padding: 0px ($bodyPadding - $headPaddingX);
 
     .top-tag {
       font-size: 1rem;
+      background-color: #151822;
+      border-radius: 5px;
+      padding: 0px $headPaddingX;
     }
   }
 
   .event-body {
     padding: $bodyPadding;
+    background-color: #151822;
+    border-radius: 15px;
 
     .title {
       font-size: 1.8em;
@@ -64,12 +67,6 @@ h1, h2, h3, h4, h5, h6 {
 .no-connection {
   top: 30px;
   right: 30px;
-}
-
-.text-wrap {
-  background-color: #151822;
-  border-radius: 5px;
-  padding: 0px $headPaddingX;
 }
 
 .text-shadow {

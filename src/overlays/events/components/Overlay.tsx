@@ -16,7 +16,7 @@ const Overlay = () => {
   const isPredictionEnd = event === EventTopic.PREDICTION_END;
 
   const eventListStyle = {
-    top: typeof offset === 'number' ? `${offset}px` : '100px',
+    top: typeof offset === 'number' ? `${offset}px` : '150px',
   };
 
   return (

@@ -5,6 +5,7 @@
 
 $bodyPadding: 20px;
 $headPaddingX: 6px;
+$fontSize: 1.25rem;
 
 * {
   padding: 0;
@@ -27,24 +28,25 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .event {
-  width: 375px;
+  width: calc($fontSize * 25);
+  min-width: 15vw;
   right: -110%;
   margin-top: 0px;
   max-height: 0px;
   color: #ffffff;
-  font-size: 0.9rem;
+  font-size: $fontSize;
 
   &.compact {
     font-size: 0.8rem;
   }
 
   .event-head {
-    top: -12px;
+    top: -$fontSize;
     width: 100%;
     padding: 0px ($bodyPadding - $headPaddingX);
 
     .top-tag {
-      font-size: 1rem;
+      font-size: 1.3em;
       background-color: #151822;
       border-radius: 5px;
       padding: 0px $headPaddingX;
@@ -52,14 +54,14 @@ h1, h2, h3, h4, h5, h6 {
   }
 
   .event-body {
-    padding: $bodyPadding;
+    padding: calc($bodyPadding + 10px) $bodyPadding $bodyPadding;
     background-color: #151822;
     border-radius: 15px;
 
     .title {
-      font-size: 1.8em;
+      font-size: 2em;
       line-height: 1em;
-      margin-bottom: 0.4em;
+      margin-bottom: 1rem;
     }
   }
 }

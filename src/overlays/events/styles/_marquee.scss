@@ -1,15 +1,15 @@
-$marqueeHeight: 2.6rem;
+$marqueeHeight: 6vh;
 
 #marquee {
   height: $marqueeHeight;
   background: #1a1a1a;
-  border-bottom: 5px solid #a90000;
+  border-bottom: 10px solid #a90000;
   color: #ffffff;
   font-size: calc($marqueeHeight / 2);
   margin-top: -$marqueeHeight;
 
   .left-box {
-    padding: 2px 12px 2px 8px;
+    padding: 9px 35px 2px 30px;
     background-color: #a90000;
     font-weight: 800;
     flex: 1 0 auto;
@@ -17,7 +17,7 @@ $marqueeHeight: 2.6rem;
   }
 
   .marquee-text {
-    top: 3px;
+    top: 15px;
 
     img {
       margin-left: 10px;

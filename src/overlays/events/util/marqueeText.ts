@@ -34,6 +34,11 @@ const refundTemplates = [
   'Up and coming Twitch streamer Esfand "Sukhbeer" TV admits to scamming viewers out of a whopping {total} Ret Coin. Refunds to follow shortly.',
 ];
 
+export type OutcomeText = {
+  winner: string;
+  loser: string;
+};
+
 const getRandomText = (arr: string[], str: string, val: string) => {
   const text = arr[Math.floor(Math.random() * arr.length)];
   return text.replace(`{${str}}`, val);
@@ -44,7 +49,7 @@ export const getOutcomeText = (
   winnerAmount: number,
   loserName: string,
   loserAmount: number,
-) => {
+): OutcomeText => {
   const formattedWinnerAmount = formatCurrency(winnerAmount);
   const winnerText1 = getRandomText(winner.names, 'name', winnerName);
   const winnerText2 = getRandomText(winner.actions, 'amount', formattedWinnerAmount);
@@ -55,7 +60,10 @@ export const getOutcomeText = (
   const loserText2 = getRandomText(loser.actions, 'amount', formattedLoserAmount);
   const loserTextFinal = `${loserText1} ${loserText2}.`;
 
-  return `${winnerTextFinal} ${loserTextFinal}`;
+  return {
+    winner: winnerTextFinal,
+    loser: loserTextFinal,
+  };
 };
 
 export const getRefundText = (total: number) => {

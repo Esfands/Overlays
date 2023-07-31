@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectPredictionEnd } from '@/state/selectors';
-import { getOutcomeText } from '@events/util/marqueeText';
+import {
+  getOutcomeText,
+  type OutcomeText as TOutcomeText,
+} from '@events/util/marqueeText';
 import type { EventStatus, Outcome } from '@/types/eventsub';
 
 const OutcomeText = () => {
   const prediction = useSelector(selectPredictionEnd);
-  const [text, setText] = useState<string | null>(null);
+  const [text, setText] = useState<TOutcomeText | null>(null);
 
   useEffect(() => {
     const winningOutcome = prediction.outcomes.find(
@@ -38,11 +41,10 @@ const OutcomeText = () => {
 
   return (
     <>
-      {text}
-      <img
-        src="https://cdn.betterttv.net/emote/5fa5985842cf82644d86e7b4/1x"
-        alt="PepePoint"
-      />
+      {text?.winner}
+      <img src="https://cdn.betterttv.net/emote/5cf6a8322316b42d72be7c36/1x.webp" />
+      {text?.loser}
+      <img src="https://cdn.betterttv.net/emote/5fa5985842cf82644d86e7b4/1x.webp" />
     </>
   );
 };

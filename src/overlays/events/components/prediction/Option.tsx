@@ -18,7 +18,7 @@ const Option = ({ outcome, totalPts, isWinner }: Props) => {
 
   const topPredictors =
     'top_predictors' in outcome
-      ? outcome.top_predictors[0].channel_points_used
+      ? outcome.top_predictors[0]?.channel_points_used || undefined
       : undefined;
 
   return (

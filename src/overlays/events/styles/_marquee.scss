@@ -1,26 +1,39 @@
-$marqueeHeight: 6vh;
+$marqueeHeight: 5vh;
 
 #marquee {
   height: $marqueeHeight;
   background: #1a1a1a;
-  border-bottom: 10px solid #a90000;
   color: #ffffff;
   font-size: calc($marqueeHeight / 2);
   margin-top: -$marqueeHeight;
+  border-top: 5px solid #a90000;
+  border-bottom: 5px solid #a90000;
 
-  .left-box {
-    padding: 9px 35px 2px 30px;
+  .marquee-title {
+    padding: 5px 20px 0px;
     background-color: #a90000;
     font-weight: 800;
-    flex: 1 0 auto;
     z-index: 1;
+    flex: 1 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  .marquee-text {
-    top: 15px;
+  .marquee-content {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding-top: 5px;
 
-    img {
-      margin-left: 10px;
+    .marquee-text {
+      white-space: nowrap;
+
+      img {
+        margin-left: 15px;
+        margin-right: 15px;
+      }
     }
   }
 }
@@ -31,11 +44,9 @@ $marqueeHeight: 6vh;
 
 @keyframes textScroll {
   from {
-    left: 100%;
-    transform: translateX(0%);
+    transform: translateX(25%);
   }
   to {
-    left: 0%;
     transform: translateX(-100%);
   }
 }

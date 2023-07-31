@@ -41,11 +41,11 @@ const Marquee = () => {
   return (
     <CSSTransition in={visible} timeout={250} classNames="marquee">
       <div id="marquee" className="d-flex w-100">
-        <div className="left-box">
+        <div className="marquee-title">
           <span>BREAKING NEWS</span>
         </div>
-        <div className="position-relative w-100">
-          <span className="marquee-text position-absolute text-nowrap" ref={textRef}>
+        <div className="marquee-content">
+          <span className="marquee-text" ref={textRef}>
             {text}
           </span>
         </div>

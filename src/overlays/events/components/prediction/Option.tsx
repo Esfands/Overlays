@@ -1,4 +1,4 @@
-import { formatDecimal, formatPercentage } from '@events/util/formatters';
+import { formatPercentage, formatShortNumber } from '@events/util/formatters';
 import type { Outcome } from '@/types/eventsub';
 
 import OptionDetail from './OptionDetail';
@@ -13,7 +13,7 @@ type Props = {
 const Option = ({ outcome, totalPts, isWinner }: Props) => {
   const percentage = formatPercentage(outcome.channel_points, totalPts);
   const ratio = outcome.channel_points
-    ? `1:${formatDecimal(totalPts / outcome.channel_points)}`
+    ? `1:${formatShortNumber(totalPts / outcome.channel_points)}`
     : undefined;
 
   const topPredictors =

@@ -19,7 +19,7 @@ export const formatShortNumber = (num: number): string => {
   } else if (num > 999) {
     return formatNumber(num / 1000) + 'K';
   } else {
-    return num.toString();
+    return formatNumber(num).toString();
   }
 };
 

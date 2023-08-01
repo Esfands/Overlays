@@ -1,4 +1,4 @@
-import App from './components/App';
+import Overlay from './components/Overlay';
 import './styles/index.scss';
 
-export default App;
+export default Overlay;

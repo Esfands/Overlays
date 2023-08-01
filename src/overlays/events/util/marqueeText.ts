@@ -1,41 +1,72 @@
-/* eslint-disable prettier/prettier */
-
 import { formatCurrency } from './formatters';
 
-const getRandomElement = (arr: any[]) => arr[Math.floor(Math.random() * arr.length)];
+const winner = {
+  names: ['Chatter "{name}"', 'Twitch local "{name}"', 'Gambling addict "{name}"'],
+  actions: [
+    'wins {amount} Ret Coin at the tables',
+    'scrapes up {amount} Ret Coin at the tables',
+    'strikes gold with a massive {amount} Ret Coin win',
+    'cleans up the tables and takes home {amount} Ret Coin',
+    'leads the winners with {amount} Ret Coin in total winnings',
+  ],
+};
+
+const loser = {
+  names: [
+    'Chatter "{name}"',
+    'Twitch local "{name}"',
+    'Gambling addict "{name}"',
+    'Shameless gambler "{name}"',
+  ],
+  actions: [
+    'burns {amount} Ret Coin on highly unlikely bet',
+    'absolutely blows it with a loss of {amount} Ret Coin',
+    'leads the losers with {amount} Ret Coin in total losses',
+    'mortgages their house to cover a {amount} Ret Coin loss',
+    'forks over {amount} Ret Coin for a wildly misplaced gamble',
+  ],
+};
+
+const refundTemplates = [
+  'High stakes bet suddenly falls through with no outcome. {amount} Ret Coin nowhere to be seen. Are mods to blame?',
+  'Short, dark-haired male closely resembling Lord Farquad from the Shrek movie series suspected of stealing {total} Ret Coin from viewers.',
+  'Local Iranian male (5\'4", long black hair) last seen robbing a bank with {total} Ret Coin. Likely wearing a black t-shirt and red shorts.',
+  'Up and coming Twitch streamer Esfand "Sukhbeer" TV admits to scamming viewers out of a whopping {total} Ret Coin. Refunds to follow shortly.',
+];
+
+export type OutcomeText = {
+  winner: string;
+  loser: string;
+};
+
+const getRandomText = (arr: string[], str: string, val: string) => {
+  const text = arr[Math.floor(Math.random() * arr.length)];
+  return text.replace(`{${str}}`, val);
+};
 
 export const getOutcomeText = (
   winnerName: string,
-  winnerAmt: number,
+  winnerAmount: number,
   loserName: string,
-  loserAmt: number
-) => {
-  const formattedWinnerAmt = formatCurrency(winnerAmt);
-  const formattedLoserAmt = formatCurrency(loserAmt);
+  loserAmount: number,
+): OutcomeText => {
+  const formattedWinnerAmount = formatCurrency(winnerAmount);
+  const winnerText1 = getRandomText(winner.names, 'name', winnerName);
+  const winnerText2 = getRandomText(winner.actions, 'amount', formattedWinnerAmount);
+  const winnerTextFinal = `${winnerText1} ${winnerText2}.`;
 
-  const winnerText = getRandomElement([
-    `Luck hits "${winnerName}" with a massive ${formattedWinnerAmt} Ret Coin win.`,
-    `Twitch local "${winnerName}" wins ${formattedWinnerAmt} Ret Coin at the tables.`,
-    `Chatter "${winnerName}" scrapes up ${formattedWinnerAmt} Ret Coin at the tables.`,
-    `Chatter "${winnerName}" leads the believers with ${formattedWinnerAmt} Ret Coin in total winnings.`,
-  ]);
+  const formattedLoserAmount = formatCurrency(loserAmount);
+  const loserText1 = getRandomText(loser.names, 'name', loserName);
+  const loserText2 = getRandomText(loser.actions, 'amount', formattedLoserAmount);
+  const loserTextFinal = `${loserText1} ${loserText2}.`;
 
-  const loserText = getRandomElement([
-    `Shameless: Twitch user "${loserName}" burns ${formattedLoserAmt} Ret Coin on unlikely bet.`,
-    `Shameless gambler "${loserName}" sells their house to throw away ${formattedLoserAmt} Ret Coin.`,
-    `Gambling addict "${loserName}" absolutely blows it with a loss of ${formattedLoserAmt} Ret Coin.`,
-    `Shameless bettor "${loserName}" forks over ${formattedLoserAmt} Ret Coin for a wildly misplaced gamble.`,
-  ]);
-
-  return `${winnerText} ${loserText}`;
+  return {
+    winner: winnerTextFinal,
+    loser: loserTextFinal,
+  };
 };
 
 export const getRefundText = (total: number) => {
   const formattedTotal = formatCurrency(total);
-
-  return getRandomElement([
-    `Up and coming Twitch streamer Esfand "Sukhbeer" TV admits to scamming viewers out of ${formattedTotal} Ret Coin. Refunds to follow shortly.`,
-    `Local Iranian male (5'6", long black hair) last seen robbing a bank with ${formattedTotal} Ret Coin. Likely wearing a black t-shirt and red shorts.`,
-    `Short, dark-haired male closely resembling Lord Farquad from the movie series Shrek seen quiety stealing ${formattedTotal} Ret Coin from Twitch viewers.`,
-  ]);
+  return getRandomText(refundTemplates, 'total', formattedTotal);
 };

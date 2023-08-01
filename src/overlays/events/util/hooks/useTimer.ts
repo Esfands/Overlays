@@ -1,18 +1,16 @@
 import { useEffect, useState } from 'react';
+import { EventDates } from '../dates';
 import { formatTimer } from '../formatters';
-import type { EventDates } from '../types';
 
-const useTimer = (initialDates: EventDates) => {
-  const [dates, setDates] = useState(initialDates);
-  const [active, setActive] = useState(false);
+const useTimer = () => {
+  const [dates, setDates] = useState<EventDates>();
   const [seconds, setSeconds] = useState(0);
 
   useEffect(() => {
     if (dates) {
-      const totalMilliseconds = new Date(dates.ends).getTime() - new Date(dates.started).getTime();
+      const totalMilliseconds = dates.end.getTime() - dates.start.getTime();
       const totalSeconds = totalMilliseconds / 1000;
 
-      setActive(true);
       setSeconds(totalSeconds);
     }
   }, [dates]);
@@ -20,22 +18,17 @@ const useTimer = (initialDates: EventDates) => {
   useEffect(() => {
     let ticker: NodeJS.Timeout;
 
-    if (active) {
-      if (seconds > 0) {
-        ticker = setTimeout(() => setSeconds((s) => s - 1), 1000);
-      } else {
-        setActive(false);
-      }
+    if (seconds > 0) {
+      ticker = setTimeout(() => setSeconds((s) => s - 1), 1000);
     }
 
     return () => clearTimeout(ticker);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [seconds]);
 
   const minutes = Math.floor(seconds / 60);
   const formattedTimer = formatTimer(minutes, seconds);
 
-  return [formattedTimer, setDates, setActive];
+  return [formattedTimer, setDates] as const;
 };
 
 export default useTimer;

@@ -5,7 +5,7 @@ $-color-doubt: #f5009b;
 
 .prediction {
   .content {
-    margin-bottom: 1em;
+    margin-bottom: 1rem;
   }
 
   .option {
@@ -45,7 +45,7 @@ $-color-doubt: #f5009b;
     margin-bottom: 8px;
 
     .option-title {
-      font-size: 1.5em;
+      font-size: 1.8em;
       width: 100%;
     }
 
@@ -58,13 +58,17 @@ $-color-doubt: #f5009b;
     .percentage {
       font-size: 3.25em;
       font-weight: 800;
-      line-height: 42pt;
       margin: 0;
     }
 
     .detail-name {
       color: #ffffff;
-      line-height: 14pt;
+      line-height: 1.5em;
+    }
+
+    .detail-item svg {
+      width: 1.2em;
+      height: 1.2em;
     }
   }
 

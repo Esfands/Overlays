@@ -1,6 +1,7 @@
 import { exec } from 'child_process';
+
 import * as dotenv from 'dotenv';
-dotenv.config();
+dotenv.config({ path: '.env.development.local', override: true });
 
 const args = process.argv.slice(2);
 
@@ -18,7 +19,7 @@ const eventTypes = [
 if (args.length === 0 || !eventTypes.includes(args[0])) {
   console.error(
     'Twitch event type argument invalid or missing.\nAccepted values:',
-    eventTypes.join(', ')
+    eventTypes.join(', '),
   );
 
   process.exit(0);
@@ -28,7 +29,6 @@ const command = [
   `twitch event trigger ${args[0]}`,
   `-c ${isProgressEvent && args[1] ? args[1] : 1}`,
   `-F http://localhost:8000/eventsub`,
-  '-t 38746172',
   `-s ${process.env.TWITCH_EVENTSUB_SECRET}`,
 ].join(' ');
 

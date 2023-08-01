@@ -1,13 +1,11 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable import/no-anonymous-default-export */
+type Props = React.ComponentProps<'svg'>;
 
 export default {
-  Count: (props) => (
+  Count: (props: Props) => (
     <svg
       type="color-fill-current"
       width="16px"
       height="16px"
-      version="1.1"
       viewBox="0 0 20 20"
       x="0px"
       y="0px"
@@ -23,12 +21,11 @@ export default {
       </g>
     </svg>
   ),
-  Trophy: (props) => (
+  Trophy: (props: Props) => (
     <svg
       type="color-fill-current"
       width="16px"
       height="16px"
-      version="1.1"
       viewBox="0 0 20 20"
       x="0px"
       y="0px"
@@ -43,12 +40,11 @@ export default {
       </g>
     </svg>
   ),
-  People: (props) => (
+  People: (props: Props) => (
     <svg
       type="color-fill-current"
       width="16px"
       height="16px"
-      version="1.1"
       viewBox="0 0 20 20"
       x="0px"
       y="0px"
@@ -64,12 +60,11 @@ export default {
       </g>
     </svg>
   ),
-  TopScore: (props) => (
+  TopScore: (props: Props) => (
     <svg
       type="color-fill-current"
       width="16px"
       height="16px"
-      version="1.1"
       viewBox="0 0 20 20"
       x="0px"
       y="0px"
@@ -85,8 +80,8 @@ export default {
       </g>
     </svg>
   ),
-  Check: (props) => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" {...props}>
+  Check: (props: Props) => (
+    <svg width="24" height="24" viewBox="0 0 24 24" {...props}>
       <path d="M0 0v24h24v-24h-24zm11 17l-5-5.299 1.399-1.43 3.574 3.736 6.572-7.007 1.455 1.403-8 8.597z" />
     </svg>
   ),

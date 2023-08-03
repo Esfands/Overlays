@@ -28,7 +28,7 @@ const loser = {
 };
 
 const refundTemplates = [
-  'High stakes bet suddenly falls through with no outcome. {amount} Ret Coin nowhere to be seen. Are mods to blame?',
+  'High stakes bet suddenly falls through with no outcome. {total} Ret Coin nowhere to be seen. Are mods to blame?',
   'Short, dark-haired male closely resembling Lord Farquad from the Shrek movie series suspected of stealing {total} Ret Coin from viewers.',
   'Local Iranian male (5\'4", long black hair) last seen robbing a bank with {total} Ret Coin. Likely wearing a black t-shirt and red shorts.',
   'Up and coming Twitch streamer Esfand "Sukhbeer" TV admits to scamming viewers out of a whopping {total} Ret Coin. Refunds to follow shortly.',
